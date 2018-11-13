@@ -1,0 +1,50 @@
+<!-- Links -->
+<link rel='stylesheet' type='text/css' href='index.css' />
+
+<!-- Update Sales Chart Form -->
+<h3>Update Graph</h3>
+<form name='submit-to-google-sheet'>
+  <select name='market' class='form-item' required>
+    <option value='' disable selected>Market</option>
+    <option value='PCFM'>PCFM</option>
+    <option value='DFM-W'>DFM-W</option>
+    <option value='EAV'>EAV</option>
+    <option value='DFM-S'>DFM-S</option>
+    <option value='GPFM'>GPFM</option>
+  </select><br>
+  <select name='vendorCategory' class='form-item' required>
+      <option value='' disable selected>Vendor Category</option>
+      <option value='farmer'>Farmer</option>
+      <option value='food'>Packaged, Processed and Prepared Food Vendor</option>
+      <option value='non-food'>Non-Food Vendors</option>
+    </select><br>
+  <input name='sales' id='sales' class='form-item' placeholder='Sales' required><br>
+  <input name='date' type ='date' class='form-item' required><br>
+  <div class='button-container'>  
+    <button class='secondary-action' disabled>Cancel</button>
+    <button class='primary-action'>Update Graph</button>
+  </div>
+</form>
+
+<!-- Sales Chart -->
+<iframe width='600' height='370' seamless frameborder='0'scrolling='no' src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSxGz7HJAmqH-2MIIACZpgTI1aoFfk51AiLw6LLZI3IdIj4yGTr1zZDRCwXrH82xXpGRiK1s6D6N6yL/pubchart?oid=1723986144&amp;format=interactive"></iframe>
+
+<script>
+  // Update Google Sheets
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbzyr9duTu6Y6NnG_ZwxaZGHv6vrU84xB4KcniUWFCUfI1mKbus/exec'
+  const form = document.forms['submit-to-google-sheet']
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+      .then(response => console.log('Success', response))
+      .catch(error => console.error('Error', error.message))
+  })
+
+  // Disable symbols and letters from Sales input
+  document.getElementById('sales').onkeypress = function(e) {
+    var chr = String.fromCharCode(e.which);
+    if ('1234567890'.indexOf(chr) < 0)
+        return false;
+};
+</script>

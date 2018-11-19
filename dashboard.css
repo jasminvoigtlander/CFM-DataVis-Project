@@ -86,15 +86,10 @@ body {
     font-family: 'Oswald-Regular';
     font-weight: 400;
     letter-spacing: 2px;
-    text-transform: uppercase;
     position: absolute;
-    -webkit-transform: translateY(-70%) translateX(140%);
-    -ms-transform: translateY(-70%) translateX(140%);
-    transform: translateY(-70%) translateX(140%);
-}
-.menu-toggle {
-    display: none;
-    cursor: pointer;
+    -webkit-transform: translateY(-70%) translateX(122%);
+    -ms-transform: translateY(-70%) translateX(122%);
+    transform: translateY(-70%) translateX(122%);
 }
 .menu li {
     display: inline-block;
@@ -103,11 +98,83 @@ body {
     color: #5f450a;
     cursor: pointer;
 }
+#navigation .menu a:hover,
+#navigation a:hover,
+.dropdown:hover .dropbtn {
+    color: #aeba4a;
+}
 .sf-arrows .sf-with-ul {
     padding-right: 18px;
+    text-transform: uppercase;
 }
 .menu a {
     line-height: 48px;
     letter-spacing: 0.1px;
     padding: 0px 8px;
+}
+a {
+    text-decoration: none;
+}
+.dropdown .dropbtn {
+    font-family: 'Oswald-Regular';
+    font-weight: 400;
+    font-size: 1em;
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+    color: #5f450a;
+    cursor: pointer;
+    border: none;
+    padding-right: 18px;
+    height: 48px;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    color: #fff;
+    background-color: #2d8464;
+    min-width: 180px;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.24);
+    border-radius: 3px !important;
+}
+.sales {
+    transform: translateX(-65px);
+}
+.attendance {
+    transform: translateX(-40px);
+}
+.dropdown-content a {
+    float: none;
+    line-height: 36px;
+    margin: 0px;
+    padding: 0px 12px;
+    color: #fff !important;
+    font-size: 0.9em;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.12);
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+.dropdown-content a:hover {
+    background-color: #007f5e;
+    border-radius: 3px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.nav-arrow {
+    border-bottom-color: #2d8464;
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    margin-left: -3px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #2d8464;
+}
+
+.nav-arrow ~ .dropdown-content {
+    display: block;
 }

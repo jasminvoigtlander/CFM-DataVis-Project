@@ -1,8 +1,57 @@
 <!-- Links -->
-<link rel='stylesheet' type='text/css' href='sales.css' />
+<link rel='stylesheet' type='text/css' href='dashboard.css' />
+<!-- <link rel='stylesheet' type='text/css' href='sales.css' /> -->
+
+<div id='header'>
+  <div class='content shadow radius-bottom'>
+    <div class='padded'>
+      <div class='outline'>
+        <div class='logo-nav'>
+          <div class='logo-nav'>
+            <h1 id='logo'>
+                <a href='https://cfmatl.org/'><img src='images/logo.png'>
+            </h1>
+          </div>
+          <nav id='navigation'>
+            <ul class='menu sf-arrows'>
+              <li>
+                <a class='sf-with-ul' href='dashboard.html'>Dashboard</a>
+              </li>
+              <li>
+                <div class='dropdown'>
+                    <button class='dropbtn' onclick='location.href="sales.html"' type='button'>Sales &#x25BE
+                    </button>
+                    <div class='dropdown-content sales'>
+                      <span class='nav-arrow'></span>
+                      <a href='sales.html'>Market</a>
+                      <a href='sales.html'>Vendor Category</a>
+                    </div>
+                </div>
+              </li>
+              <li>
+                  <div class='dropdown'>
+                      <button class='dropbtn' onclick='location.href="attendance.html"' type='button'>Attendance &#x25BE
+                      </button>
+                      <div class='dropdown-content attendance'>
+                        <span class='nav-arrow'></span>
+                        <a href='attendance.html'>Market</a>
+                        <a href='attendance.html'>Vendor Category</a>
+                      </div>
+                  </div>
+              </li>
+              <li>
+                <a class='sf-with-ul' href='support.html'>Support</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Update Sales Chart Form -->
-<h3>Update Graph</h3>
+<!-- <h3>Update Graph</h3>
 <form name='submit-to-google-sheet'>
   <select name='market' class='form-item' required>
     <option value='' disable selected>Market</option>
@@ -24,12 +73,12 @@
     <button class='secondary-action' disabled>Cancel</button>
     <button class='primary-action'>Update Graph</button>
   </div>
-</form>
+</form> -->
 
 <!-- Sales Chart -->
-<iframe width='600' height='370' seamless frameborder='0'scrolling='no' src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSxGz7HJAmqH-2MIIACZpgTI1aoFfk51AiLw6LLZI3IdIj4yGTr1zZDRCwXrH82xXpGRiK1s6D6N6yL/pubchart?oid=1723986144&amp;format=interactive"></iframe>
+<!-- <iframe width='600' height='370' seamless frameborder='0'scrolling='no' src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSxGz7HJAmqH-2MIIACZpgTI1aoFfk51AiLw6LLZI3IdIj4yGTr1zZDRCwXrH82xXpGRiK1s6D6N6yL/pubchart?oid=1723986144&amp;format=interactive"></iframe> -->
 
-<script>
+<!-- <script>
   // Update Google Sheets
   const scriptURL = 'https://script.google.com/macros/s/AKfycbzyr9duTu6Y6NnG_ZwxaZGHv6vrU84xB4KcniUWFCUfI1mKbus/exec'
   const form = document.forms['submit-to-google-sheet']
@@ -47,4 +96,4 @@
     if ('1234567890'.indexOf(chr) < 0)
         return false;
 };
-</script>
+</script> -->

@@ -85,11 +85,12 @@ body {
 #navigation {
     font-family: 'Oswald-Regular';
     font-weight: 400;
+    font-size: 17px;
     letter-spacing: 2px;
     position: absolute;
-    -webkit-transform: translateY(-70%) translateX(122%);
-    -ms-transform: translateY(-70%) translateX(122%);
-    transform: translateY(-70%) translateX(122%);
+    -webkit-transform: translateY(-70%) translateX(115%);
+    -ms-transform: translateY(-70%) translateX(115%);
+    transform: translateY(-70%) translateX(115%);
 }
 .menu li {
     display: inline-block;

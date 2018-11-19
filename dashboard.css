@@ -1,0 +1,113 @@
+@font-face {
+    font-family: 'DroidSerif-Regular';
+    src: url('fonts/droid-serif/DroidSerif-Regular.ttf');
+}
+@font-face {
+    font-family: 'Oswald-Regular';
+    src: url('fonts/oswald/Oswald-Regular.ttf');
+}
+#header {
+    position: absolute;
+    margin-bottom: 0px;
+    width: 100%;
+    line-height: 0;
+    margin: 0px auto 24px;
+    height: 138px;
+    transform: translateY(-8px);
+    -webkit-transform: translateY(-8px);
+    -ms-transform: translateY(-8px);
+}
+#header .content {
+    background-color: #fff;
+    height: 138px;
+}
+#header .padded {
+    padding-top: 0px;
+}
+#header .logo-nav {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+#header #logo {
+    display: block;
+    line-height: 0;
+    margin: 0px;
+    padding: 0 10px;
+}
+#header #logo img {
+    max-height: 100px;
+}
+#header .outline {
+    display: inline-block;
+    width: -webkit-calc(100% - 24px);
+    width: -moz-calc(100% - 24px);
+    padding: 12px;
+    border-top: none;
+    border-radius: 0px 0px 6px 6px;
+    overflow: visible;
+}
+.padded {
+    padding: 12px;
+}
+.radius-bottom {
+    border-radius: 0px 0px 12px 12px;
+    -moz-border-radius: 0px 0px 12px 12px;
+    -khtml-border-radius: 0px 0px 12px 12px;
+    -webkit-border-radius: 0px 0px 12px 12px;
+}
+.shadow {
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.24);
+    -webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.24);
+}
+.content {
+    position: relative;
+    background: #fff;
+    max-width: 1080px;
+    width: 100%;
+    margin: 0px auto 0px;
+    padding: 0px;
+}
+.outline {
+    position: relative;
+    padding: 12px;
+    border: 2px dotted rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    overflow: hidden;
+}
+body {
+    font-family: 'Droid Serif';
+    font-style: normal;
+    font-weight: 400;
+    background-color: #fffaf2;
+}
+#navigation {
+    font-family: 'Oswald-Regular';
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: absolute;
+    -webkit-transform: translateY(-70%) translateX(140%);
+    -ms-transform: translateY(-70%) translateX(140%);
+    transform: translateY(-70%) translateX(140%);
+}
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+.menu li {
+    display: inline-block;
+}
+#navigation .menu a {
+    color: #5f450a;
+    cursor: pointer;
+}
+.sf-arrows .sf-with-ul {
+    padding-right: 18px;
+}
+.menu a {
+    line-height: 48px;
+    letter-spacing: 0.1px;
+    padding: 0px 8px;
+}

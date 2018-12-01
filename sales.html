@@ -64,7 +64,7 @@
               <canvas id="allSales" width='300' height="150"></canvas>
               <canvas id="salesMarket" width='300' height="150"></canvas>
               <canvas id="salesVendor" width='300' height="150"></canvas>
-              <canvas id="allAttendance" width='300' height="150"></canvas>
+              <canvas id="allAttendance" width='300' height="150"></canvas> 
               <!-- <canvas id="attendanceMarket" width='300' height="150"></canvas> -->
           </div>
         </div>
@@ -117,7 +117,7 @@
         salesVendorY[2] += data[i].sales;
       }
     }
-    allSalesX.push(date);
+    allSalesX.push(new Date(date));
     allSalesY.push(sales.reduce(function add(a, b) { return a + b }), 0);
 
     //Round datapoints to nearest integer
@@ -264,6 +264,148 @@
               autoSkip: false,
               maxRotation: 0,
               minRotation: 0
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            },
+            display: true,
+          }]
+        }
+      }
+    });
+  });
+
+  //Parse Attendance JSON
+  $.getJSON('attendance.json', function (data) {
+    //Instantiate x and y arrays for charts
+    var allAttendanceX = [];
+    var allAttendanceY = [];
+    var attendanceMarketX = ['PCFM', 'EAV', 'DFM-W', 'DFM-S', 'GPFM'];
+    var attendanceMarketY = [0, 0, 0, 0, 0];
+    var date = '5/15/11';
+    var attendance = [];
+
+    for (var i = 0; i < data.length; i++) {
+      //All Attendance
+      if (data[i].date !== date) {
+        allAttendanceX.push(new Date(date));
+        var rounded = Math.round(attendance.reduce(function add(a, b) { return a + b }, 0));
+        allAttendanceY.push(rounded);
+        attendance = [];
+        date = data[i].date;
+      }
+      attendance.push(data[i].attendance);
+      //Attendance per Market
+      if (data[i].market == 'PCFM') {
+        attendanceMarketY[0] += data[i].attendance;
+      } else if (data[i].market == 'EAV') {
+        attendanceMarketY[1] += data[i].attendance;
+      } else if (data[i].market == 'DFM-W') {
+        attendanceMarketY[2] += data[i].attendance;
+      } else if (data[i].market == 'DFM-S') {
+        attendanceMarketY[3] += data[i].attendance;
+      } else if (data[i].market == 'GPFM') {
+        attendanceMarketY[4] += data[i].attendance;
+      }
+    }
+    allAttendanceX.push(date);
+    allAttendanceY.push(attendance.reduce(function add(a, b) { return a + b }), 0);
+    //Round datapoints to nearest integer
+    for (var i = 0; i < attendanceMarketY.length; i++) {
+      var rounded = Math.round(attendanceMarketY[i]);
+      attendanceMarketY[i] = rounded;
+    }
+
+    //Create All Attendance Graph
+    var ctx = document.getElementById('allAttendance');
+    var allAttendance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: allAttendanceX,
+        datasets: [{
+          fill: false,
+          data: allAttendanceY,
+          borderColor: '#2d8464',
+          backgroundColor: '#2d8464',
+          spanGaps: true
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Overall Attendance',
+          fontColor: 'rgba(0,0,0,0.6)',
+          fontFamily: 'Droid Serif'
+        },
+        fill: false,
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            type: 'time',
+            display: true,
+            ticks: {
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            },
+            display: true,
+          }]
+        },
+        zoom: {
+          enabled: true,
+          drag: false,
+          mode: 'x'
+        },
+        pan: {
+          enabled: true,
+          mode: 'x'
+        }
+      }
+    });
+
+    //Create Attendance per Market Graph
+    var ctx = document.getElementById('attendanceMarket');
+    var salesMarket = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: attendanceMarketX,
+        datasets: [{
+          fill: false,
+          data: attendanceMarketY,
+          borderColor: '#2d8464',
+          backgroundColor: '#2d8464',
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Attendance Per Market',
+          fontColor: 'rgba(0,0,0,0.6)',
+          fontFamily: 'Droid Serif'
+        },
+        fill: false,
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            ticks: {
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
             }
           }],
           yAxes: [{

@@ -16,7 +16,7 @@
 #footer .content {
     position: relative;
     margin-top: 24px;
-    margin: 0px 180px 0px;
+    margin: 0px 170px 0px;
 }
 .radius-top {
     border-radius: 12px 12px 0px 0px;
@@ -39,4 +39,8 @@
     padding: 0px 12px;
     border-bottom: 2px dotted rgba(0, 0, 0, 0.12);
     overflow: hidden;
+    margin-left: 300px;
+}
+#allSales, #salesMarket {
+    margin-bottom: 30px;
 }

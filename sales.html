@@ -4,6 +4,8 @@
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="plugins/hammerjs/hammer.min.js"></script>
+<script src="plugins/chartjs-plugin-zoom/chartjs-plugin-zoom.js"></script>
 <script type="text/javascript" src="sales.json"></script>
 <script type="text/javascript" src="attendance.json"></script>
 
@@ -59,7 +61,11 @@
       <div class='outline'>
         <div class='row'>
           <div class='graphs'>
-              <canvas id="myChart" width="1600" height="900"></canvas>
+              <canvas id="allSales" width='300' height="150"></canvas>
+              <canvas id="salesMarket" width='300' height="150"></canvas>
+              <canvas id="salesVendor" width='300' height="150"></canvas>
+              <canvas id="allAttendance" width='300' height="150"></canvas>
+              <!-- <canvas id="attendanceMarket" width='300' height="150"></canvas> -->
           </div>
         </div>
       </div>
@@ -68,56 +74,208 @@
 </div>
 
 <script>
-var allSalesX = [];
-var allSalesY = [];
-
-//Parse Sales JSON
-$.getJSON('sales.json', function(data) {  
+  //Parse Sales JSON
+  $.getJSON('sales.json', function (data) {
+    //Instantiate x and y arrays for charts
+    var allSalesX = [];
+    var allSalesY = [];
+    var salesMarketX = ['PCFM', 'EAV', 'DFM-W', 'DFM-S', 'GPFM'];
+    var salesMarketY = [0, 0, 0, 0, 0];
+    var salesVendorX = ['Non-Food Vendor', ['Packaged, Processed, and', 'Prepared Food Vendor'], "Farmer"];
+    var salesVendorY = [0, 0, 0];
     var date = '5/8/18';
     var sales = [];
+
     for (var i = 0; i < data.length; i++) {
+      //All Sales
       if (data[i].date !== date) {
         allSalesX.push(new Date(date));
-        allSalesY.push(sales.reduce(function add(a, b) { return a + b }, 0));
+        var rounded = Math.round(sales.reduce(function add(a, b) { return a + b }, 0));
+        allSalesY.push(rounded);
         sales = [];
         date = data[i].date;
       }
       sales.push(data[i].sales);
+      //Sales per Market
+      if (data[i].market == 'PCFM') {
+        salesMarketY[0] += data[i].sales;
+      } else if (data[i].market == 'EAV') {
+        salesMarketY[1] += data[i].sales;
+      } else if (data[i].market == 'DFM-W') {
+        salesMarketY[2] += data[i].sales;
+      } else if (data[i].market == 'DFM-S') {
+        salesMarketY[3] += data[i].sales;
+      } else if (data[i].market == 'GPFM') {
+        salesMarketY[4] += data[i].sales;
+      }
+      //Sales per Vendor Category
+      if (data[i].vendorCategory == 'Non-Food Vendors' || data[i].vendorCategory == 'Non-Food Vendor') {
+        salesVendorY[0] += data[i].sales;
+      } else if (data[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
+        salesVendorY[1] += data[i].sales;
+      } else if (data[i].vendorCategory == 'Farmer') {
+        salesVendorY[2] += data[i].sales;
+      }
     }
     allSalesX.push(date);
-    allSalesY.push(Math.round(sales.reduce(function add(a, b) { return a + b }), 0));
+    allSalesY.push(sales.reduce(function add(a, b) { return a + b }), 0);
+
+    //Round datapoints to nearest integer
+    for (var i = 0; i < salesMarketY.length; i++) {
+      var rounded = Math.round(salesMarketY[i]);
+      salesMarketY[i] = rounded;
+    }
+    for (var i = 0; i < salesVendorY.length; i++) {
+      var rounded = Math.round(salesVendorY[i]);
+      salesVendorY[i] = rounded;
+    }
 
     //Create All Sales Graph
-    var ctx = document.getElementById('myChart');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: allSalesX,
-          datasets: [{
-              fill: false,
-              label: 'Sales',
-              data: allSalesY,
-              borderColor: '#2d8464',
-              backgroundColor: '#2d8464',
+    var ctx = document.getElementById('allSales');
+    var allSales = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: allSalesX,
+        datasets: [{
+          fill: false,
+          data: allSalesY,
+          borderColor: '#2d8464',
+          backgroundColor: '#2d8464',
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Overall Sales',
+          fontColor: 'rgba(0,0,0,0.6)',
+          fontFamily: 'Droid Serif'
+        },
+        fill: false,
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            type: 'time',
+            display: true,
+            ticks: {
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            },
+            display: true,
           }]
         },
-        options: {
-            fill: false,
-            responsive: true,
-            scales: {
-                xAxes: [{
-                    type: 'time',
-                    display: true,
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                    },
-                    display: true,
-                }]
-            }
+        zoom: {
+          enabled: true,
+          drag: false,
+          mode: 'x'
+        },
+        pan: {
+          enabled: true,
+          mode: 'x'
         }
+      }
     });
-});
 
+    //Create Sales per Market Graph
+    var ctx = document.getElementById('salesMarket');
+    var salesMarket = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: salesMarketX,
+        datasets: [{
+          fill: false,
+          data: salesMarketY,
+          borderColor: '#2d8464',
+          backgroundColor: '#2d8464',
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Sales Per Market',
+          fontColor: 'rgba(0,0,0,0.6)',
+          fontFamily: 'Droid Serif'
+        },
+        fill: false,
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            ticks: {
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            },
+            display: true,
+          }]
+        }
+      }
+    });
+
+    //Create Sales per Vendor Category Graph
+    var ctx = document.getElementById('salesVendor');
+    var salesVendor = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: salesVendorX,
+        datasets: [{
+          fill: false,
+          data: salesVendorY,
+          borderColor: '#2d8464',
+          backgroundColor: '#2d8464',
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Sales Per Vendor Category',
+          fontColor: 'rgba(0,0,0,0.6)',
+          fontFamily: 'Droid Serif'
+        },
+        fill: false,
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            ticks: {
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif',
+              autoSkip: false,
+              maxRotation: 0,
+              minRotation: 0
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            },
+            display: true,
+          }]
+        }
+      }
+    });
+  });
 </script>

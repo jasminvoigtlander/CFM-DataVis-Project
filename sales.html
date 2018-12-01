@@ -3,6 +3,9 @@
 <link rel='stylesheet' type='text/css' href='sales.css' />
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="sales.json"></script>
+<script type="text/javascript" src="attendance.json"></script>
 
 <div id='header'>
   <div class='content shadow radius-bottom'>
@@ -65,26 +68,56 @@
 </div>
 
 <script>
-//labels across x axis
-var years = [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050];
-//data for lines
-var africa = [86,114,106,106,107,111,133,221,783,2478];
-var asia = [282,350,411,502,635,809,947,1402,3700,5267];
-var europe = [168,170,178,190,203,276,408,547,675,734];
-var latinAmerica = [40,20,10,16,24,38,74,167,508,784];
-var northAmerica = [6,3,2,2,7,26,82,172,312,433];
+var allSalesX = [];
+var allSalesY = [];
 
-var ctx = document.getElementById("myChart");
-var myChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: years,
-    datasets: [
-      { 
-        data: africa
+//Parse Sales JSON
+$.getJSON('sales.json', function(data) {  
+    var date = '5/8/18';
+    var sales = [];
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].date !== date) {
+        allSalesX.push(new Date(date));
+        allSalesY.push(sales.reduce(function add(a, b) { return a + b }, 0));
+        sales = [];
+        date = data[i].date;
       }
-    ]
-  }
+      sales.push(data[i].sales);
+    }
+    allSalesX.push(date);
+    allSalesY.push(Math.round(sales.reduce(function add(a, b) { return a + b }), 0));
+
+    //Create All Sales Graph
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: allSalesX,
+          datasets: [{
+              fill: false,
+              label: 'Sales',
+              data: allSalesY,
+              borderColor: '#2d8464',
+              backgroundColor: '#2d8464',
+          }]
+        },
+        options: {
+            fill: false,
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    display: true,
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                    display: true,
+                }]
+            }
+        }
+    });
 });
 
 </script>

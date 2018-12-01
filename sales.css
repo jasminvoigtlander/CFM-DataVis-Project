@@ -11,6 +11,7 @@
     padding: 0px;
     position: absolute;
     bottom: 0;
+    z-index: 1;
 }
 #footer .content {
     position: relative;

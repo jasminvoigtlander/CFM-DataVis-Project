@@ -7,7 +7,6 @@
     src: url('fonts/oswald/Oswald-Regular.ttf');
 }
 #header {
-    position: absolute;
     margin-bottom: 0px;
     width: 100%;
     line-height: 0;
@@ -16,6 +15,8 @@
     transform: translateY(-8px);
     -webkit-transform: translateY(-8px);
     -ms-transform: translateY(-8px);
+    /* display: flex;
+    justify-content: center; */
 }
 #header .content {
     background-color: #fff;

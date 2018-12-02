@@ -11,6 +11,8 @@
     padding: 0px;
     bottom: 0;
     transform: translateY(8px);
+    display: flex;
+    justify-content: center;
 }
 #footer .content {
     position: relative;

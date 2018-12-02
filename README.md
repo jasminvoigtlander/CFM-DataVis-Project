@@ -1,4 +1,4 @@
-Chart.js mockups for CFM Attendance and Sales data
+High fidelity prototype for CFM Data Visualization Tool
 
 ### To view the prototype
 

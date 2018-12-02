@@ -1,6 +1,6 @@
 <!-- Links -->
 <link rel='stylesheet' type='text/css' href='dashboard.css' />
-<link rel='stylesheet' type='text/css' href='attendance.css' />
+<link rel='stylesheet' type='text/css' href='data-upload.css' />
 
 <div id='header'>
   <div class='content shadow radius-bottom'>
@@ -19,7 +19,7 @@
                 <a class='sf-with-ul' href='dashboard.html'>Dashboard</a>
               </li>
               <li>
-                <a class='sf-with-ul' href='sales.html'>Graphs</a>
+                <a class='sf-with-ul' href='graphs.html'>Graphs</a>
               </li>
               <li>
                 <a class='sf-with-ul' href='data-upload.html'>Data Upload</a>
@@ -34,3 +34,51 @@
     </div>
   </div>
 </div>
+<div id='footer'>
+  <div class='content shadow radius-top'>
+    <div class='padded'>
+      <div class='outline'>
+        <div class='row'>
+          <div class='upload-form'>
+              <form>
+                <select name='market' class='form-item' required>
+                  <option value='' disable selected>Market</option>
+                  <option value='EAV'>East Atlanta Village</option>
+                  <option value='DFM-W'>Decatur (Wednesday)</option>
+                  <option value='DFM-S'>Decatur (Saturday)</option>
+                  <option value='GPFM'>Grant Park</option>
+                  <option value='PCFM-S'>Poncy City</option>
+                </select><br>
+                <select name='vendorCategory' class='form-item' required>
+                    <option value='' disable selected>Vendor Category</option>
+                    <option value='farmer'>Farmer</option>
+                    <option value='food'>Packaged, Processed and Prepared Food Vendor</option>
+                    <option value='non-food'>Non-Food Vendor</option>
+                  </select><br>
+                <input name='sales' id='sales' class='form-item' placeholder='Sales' required><br>
+                <input name='sales' id='attendance' class='form-item' placeholder='Attendance' required><br>
+                <input name='date' type ='date' class='form-item' required><br>
+                <div class='button-container'>  
+                  <button class='secondary-action' disabled>Cancel</button>
+                  <button class='primary-action'>Upload Data</button>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // Disable symbols and letters from Sales and Attendance input
+  document.getElementById('sales').onkeypress = function(e) {
+      var chr = String.fromCharCode(e.which);
+      if ('1234567890'.indexOf(chr) < 0)
+          return false;
+  };
+  document.getElementById('attendance').onkeypress = function(e) {
+      var chr = String.fromCharCode(e.which);
+      if ('1234567890'.indexOf(chr) < 0)
+          return false;
+  };
+</script>

@@ -15,8 +15,6 @@
     transform: translateY(-8px);
     -webkit-transform: translateY(-8px);
     -ms-transform: translateY(-8px);
-    /* display: flex;
-    justify-content: center; */
 }
 #header .content {
     background-color: #fff;

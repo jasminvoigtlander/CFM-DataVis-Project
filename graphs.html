@@ -45,6 +45,38 @@
     <div class='padded'>
       <div class='outline'>
         <div class='row'>
+          <div class='filter'>
+            <div class='filter-title'>
+              <span>Filter</span>
+              <button id='filter-clear'><span><u>Clear All</u></span></button>
+            </div>
+            <div class='filter-row'>
+              <span>Type of Graph</span>
+            </div>
+            <div class='expanded'>
+                <span id='checkbox'><input type='checkbox'>Sales</span>
+                <span id='checkbox'><input type='checkbox'>Attendance</span>
+            </div>
+            <div class='filter-row'>
+                <span>Market</span>
+            </div>
+            <div class='expanded markets'>
+                <span id='checkbox'><input type='checkbox'>PCFM</span>
+                <span id='checkbox'><input type='checkbox'>EAV</span>
+                <span id='checkbox'><input type='checkbox'>DFM</span>
+                <span id='checkbox' class='next-line'><input type='checkbox'>GPFM</span>
+            </div>
+            <div class='filter-row'>
+                <span>Vendor Category</span>
+            </div>
+            <div class='expanded categories'>
+                <span id='checkbox'><input type='checkbox'>Non-Food Vendor</span>
+                <span id='checkbox'><input type='checkbox'>Farmer</span>
+                <span id='checkbox' class='next-line'><input type='checkbox'>Packaged, Processed, and
+                  <div class='align-text'>Prepared Food Vendor</div>
+                </span>
+            </div>
+          </div>
           <div class='graphs'>
               <canvas id="allSales" width='300' height="150"></canvas>
               <canvas id="salesMarket" width='300' height="150"></canvas>
@@ -69,6 +101,21 @@
 </div>
 
 <script>
+  //Add collapsible filtering
+  var row = document.getElementsByClassName('filter-row');
+  for (var i = 0; i < row.length; i++) {
+    row[i].addEventListener('click', function () {
+      this.classList.toggle('active');
+      var content = this.nextElementSibling;
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+      } else {
+        content.style.display = 'block';
+      }
+    });
+  }
+  //Add filtering actions
+
   //Parse Sales JSON
   $.getJSON('sales.json', function (data) {
     //Instantiate x and y arrays for charts

@@ -1,9 +1,49 @@
+
 @font-face {
     font-family: 'DroidSerif-Regular';
     src: url('fonts/droid-serif/DroidSerif-Regular.ttf');
 }
+@font-face {
+    font-family: 'Oswald-Regular';
+    src: url('fonts/oswald/Oswald-Regular.ttf');
+}
+#footer {
+    margin: 0px auto 0px;
+    padding: 0px;
+    bottom: 0;
+    transform: translateY(8px);
+    display: flex;
+    justify-content: center;
+}
+#footer .content {
+    position: relative;
+    margin-top: 24px;
+    margin: 0px 170px 0px;
+}
+.radius-top {
+    border-radius: 12px 12px 0px 0px;
+    -moz-border-radius: 12px 12px 0px 0px;
+    -khtml-border-radius: 12px 12px 0px 0px;
+    -webkit-border-radius: 12px 12px 0px 0px;
+}
+#footer .padded {
+    padding-bottom: 0px;
+}
+#footer .outline {
+    border-bottom: none;
+    border-radius: 6px 6px 0px 0px;
+}
+.row {
+    width: 100%;
+    margin: 0 auto;
+}
+.data-upload {
+    padding: 0px 12px;
+    border-bottom: 2px dotted rgba(0, 0, 0, 0.12);
+    overflow: scroll;
+}
 .form-item { 
-    width: 223px;
+    width: 600px;
     height: 20px;
     background-color: #fff;
     border-radius: 5px;
@@ -19,7 +59,8 @@
     color: rgba(0,0,0,0.5);
 }
 .button-container {
-    margin-top: 7px;
+    margin: 7px 0px 0px 377px;
+
 }
 button {
     border-radius: 5px;
@@ -72,4 +113,8 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button,
 input::-webkit-calendar-picker-indicator {
     display: none;
+}
+.upload-form {
+    height: 562px;
+    padding: 12px 0px 0px 210px;
 }

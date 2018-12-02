@@ -66,6 +66,7 @@
               <canvas id="salesVendor" width='300' height="150"></canvas>
               <canvas id="allAttendance" width='300' height="150"></canvas> 
               <canvas id="attendanceMarket" width='300' height="150"></canvas>
+              <canvas id="PCFMsales" width='300' height="150"></canvas>
           </div>
         </div>
       </div>
@@ -77,14 +78,12 @@
   //Parse Sales JSON
   $.getJSON('sales.json', function (data) {
     //Instantiate x and y arrays for charts
-    var allSalesX = [];
-    var allSalesY = [];
+    var allSalesX = allSalesY = PCFMsalesX = PCFMsalesY = sales = PCFMsales = [];
     var salesMarketX = ['PCFM', 'EAV', 'DFM-W', 'DFM-S', 'GPFM'];
     var salesMarketY = [0, 0, 0, 0, 0];
     var salesVendorX = ['Non-Food Vendor', ['Packaged, Processed, and', 'Prepared Food Vendor'], "Farmer"];
     var salesVendorY = [0, 0, 0];
-    var date = '5/8/18';
-    var sales = [];
+    var date, PCFMdate = '5/8/18';
 
     for (var i = 0; i < data.length; i++) {
       //All Sales

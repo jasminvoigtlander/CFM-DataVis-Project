@@ -1,6 +1,9 @@
 <!-- Links -->
 <link rel='stylesheet' type='text/css' href='dashboard.css' />
 <link rel='stylesheet' type='text/css' href='data-upload.css' />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="sales.json"></script>
+<script type="text/javascript" src="attendance.json"></script>
 
 <div id='header'>
   <div class='content shadow radius-bottom'>
@@ -41,24 +44,43 @@
         <div class='row'>
           <div class='upload-form'>
               <form>
+                <div class="toggle">
+                  <br>What type of data are you updating?</br>
+                  <div id= "saleRadio">
+                    <input id="radio-one" class="form-radio" type="radio" name="graphs" value="SalesRadio" onchange="salesInputs()"> Sales<br>
+                  </div>
+                  <div id = attendanceRadio>
+                    <input id="radio-one" class="form-radio" type="radio" name="graphs" value="AttendanceRadio" onchange="attendanceInputs()"> Attendance<br>
+                  </div>
+                  <br>
+                </div>
+
                 <select name='market' class='form-item' required>
                   <option value='' disable selected>Market</option>
                   <option value='EAV'>East Atlanta Village</option>
                   <option value='DFM-W'>Decatur (Wednesday)</option>
                   <option value='DFM-S'>Decatur (Saturday)</option>
                   <option value='GPFM'>Grant Park</option>
-                  <option value='PCFM-S'>Ponce City</option>
+                  <option value='PCFM-S'>Poncy City</option>
                 </select><br>
-                <select name='vendorCategory' class='form-item' required>
-                    <option value='' disable selected>Vendor Category</option>
-                    <option value='farmer'>Farmer</option>
-                    <option value='food'>Packaged, Processed and Prepared Food Vendor</option>
-                    <option value='non-food'>Non-Food Vendor</option>
-                  </select><br>
-                <input name='sales' id='sales' class='form-item' placeholder='Sales' required><br>
-                <input name='sales' id='attendance' class='form-item' placeholder='Attendance' required><br>
+
+                <div id="vendorCategory">
+                  <select name='vendorCategory' class='form-item' required>
+                      <option value='' disable selected>Vendor Category</option>
+                      <option value='farmer'>Farmer</option>
+                      <option value='food'>Packaged, Processed and Prepared Food Vendor</option>
+                      <option value='non-food'>Non-Food Vendor</option>
+                    </select><br>
+                </div>
+
+                <div id="saleData">
+                  <input name='sales' id='sales' class='form-item' placeholder='Sales' required><br>
+                </div>
+                <div id="attendanceData">
+                  <input name='sales' id='attendance' class='form-item' placeholder='Attendance' required><br>
+                </div>
                 <input name='date' type ='date' class='form-item' required><br>
-                <div class='button-container'>  
+                <div class='button-container'>
                   <button class='secondary-action' disabled>Cancel</button>
                   <button class='primary-action'>Upload Data</button>
                 </div>
@@ -70,6 +92,25 @@
   </div>
 </div>
 <script>
+  function salesInputs() {
+      var y = document.getElementById('attendanceData');
+      y.style.display = "none";
+      var x = document.getElementById('vendorCategory');
+      x.style.display = "block";
+      var z = document.getElementById('saleData');
+      z.style.display = "block";
+  }
+
+  function attendanceInputs() {
+    var x = document.getElementById('vendorCategory');
+    var y = document.getElementById('attendanceData');
+    var z = document.getElementById('saleData');
+
+    z.style.display = "none";
+    x.style.display = "none";
+    y.style.display = "block";
+
+  }
   // Disable symbols and letters from Sales and Attendance input
   document.getElementById('sales').onkeypress = function(e) {
       var chr = String.fromCharCode(e.which);
@@ -81,4 +122,8 @@
       if ('1234567890'.indexOf(chr) < 0)
           return false;
   };
+</script>
+<script type="text/javascript">
+  // script for writing to json after form submission
+
 </script>

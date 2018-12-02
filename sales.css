@@ -9,9 +9,8 @@
 #footer {
     margin: 0px auto 0px;
     padding: 0px;
-    position: absolute;
     bottom: 0;
-    z-index: 1;
+    transform: translateY(8px);
 }
 #footer .content {
     position: relative;
@@ -38,9 +37,22 @@
 .graphs {
     padding: 0px 12px;
     border-bottom: 2px dotted rgba(0, 0, 0, 0.12);
-    overflow: hidden;
+    overflow: scroll;
     margin-left: 300px;
 }
-#allSales, #salesMarket {
+#allSales,
+#salesMarket,
+#PCFMsales,
+#EAVsales,
+#DFMsales,
+#GPFMsales,
+#precipSales,
+#allAttendance,
+#attendanceMarket,
+#PCFMattendance,
+#EAVattendance,
+#DFMattendance,
+#GPFMattendance,
+#precipAttendance {
     margin-bottom: 30px;
 }

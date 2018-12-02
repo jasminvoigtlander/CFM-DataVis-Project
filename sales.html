@@ -65,7 +65,7 @@
               <canvas id="salesMarket" width='300' height="150"></canvas>
               <canvas id="salesVendor" width='300' height="150"></canvas>
               <canvas id="allAttendance" width='300' height="150"></canvas> 
-              <!-- <canvas id="attendanceMarket" width='300' height="150"></canvas> -->
+              <canvas id="attendanceMarket" width='300' height="150"></canvas>
           </div>
         </div>
       </div>
@@ -158,6 +158,14 @@
         scales: {
           xAxes: [{
             type: 'time',
+            time: {
+              //Last month as default date range
+              // min: (new Date).getTime() - 2592000000,
+              // max: new Date()
+              //Last 6 months as default date range
+              min: (new Date).setMonth((new Date).getMonth() - 6),
+              max: new Date()
+            },
             display: true,
             ticks: {
               fontColor: 'rgba(0,0,0,0.6)',
@@ -349,6 +357,14 @@
         scales: {
           xAxes: [{
             type: 'time',
+            time: {
+              //Last month as default date range
+              // min: (new Date).getTime() - 2592000000,
+              // max: new Date()
+              //Last 6 months as default date range
+              min: (new Date).setMonth((new Date).getMonth() - 6),
+              max: new Date()
+            },
             display: true,
             ticks: {
               fontColor: 'rgba(0,0,0,0.6)',
@@ -374,7 +390,7 @@
         }
       }
     });
-
+  
     //Create Attendance per Market Graph
     var ctx = document.getElementById('attendanceMarket');
     var salesMarket = new Chart(ctx, {

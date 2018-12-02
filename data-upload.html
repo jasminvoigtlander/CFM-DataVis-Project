@@ -47,10 +47,10 @@
                 <div class="toggle">
                   <br>What type of data are you updating?</br>
                   <div id= "saleRadio">
-                    <input id="radio-one" class="form-radio" type="radio" name="graphs" value="SalesRadio" onchange="salesInputs()"> Sales<br>
+                    <input id="radio-one" class="form-radio r1" type="radio" name="graphs" value="SalesRadio" onchange="salesInputs()"> Sales<br>
                   </div>
                   <div id = attendanceRadio>
-                    <input id="radio-one" class="form-radio" type="radio" name="graphs" value="AttendanceRadio" onchange="attendanceInputs()"> Attendance<br>
+                    <input id="radio-one" class="form-radio r2" type="radio" name="graphs" value="AttendanceRadio" onchange="attendanceInputs()"> Attendance<br>
                   </div>
                   <br>
                 </div>
@@ -65,7 +65,7 @@
                 </select><br>
 
                 <div id="vendorCategory">
-                  <select name='vendorCategory' class='form-item' required>
+                  <select  id='vc' name='vendorCategory' class='form-item' required>
                       <option value='' disable selected>Vendor Category</option>
                       <option value='farmer'>Farmer</option>
                       <option value='food'>Packaged, Processed and Prepared Food Vendor</option>
@@ -82,7 +82,7 @@
                 <input name='date' type ='date' class='form-item' required><br>
                 <div class='button-container'>
                   <button class='secondary-action' disabled>Cancel</button>
-                  <button class='primary-action'>Upload Data</button>
+                  <button class='primary-action' onclick="saveTo()">Upload Data</button>
                 </div>
               </form>
           </div>
@@ -95,10 +95,20 @@
   function salesInputs() {
       var y = document.getElementById('attendanceData');
       y.style.display = "none";
+
       var x = document.getElementById('vendorCategory');
       x.style.display = "block";
+
       var z = document.getElementById('saleData');
       z.style.display = "block";
+
+      var a = document.getElementById('vc');
+      var b = document.getElementById('attendance');
+      var c = document.getElementById('sales');
+
+      a.required = true;
+      b.required = false;
+      c.required = true;
   }
 
   function attendanceInputs() {
@@ -106,9 +116,18 @@
     var y = document.getElementById('attendanceData');
     var z = document.getElementById('saleData');
 
+    var a = document.getElementById('vc');
+    var b = document.getElementById('attendance');
+    var c = document.getElementById('sales');
+
     z.style.display = "none";
+    c.required = false;
+
     x.style.display = "none";
+    a.required = false;
+
     y.style.display = "block";
+    b.required = true;
 
   }
   // Disable symbols and letters from Sales and Attendance input
@@ -122,8 +141,15 @@
       if ('1234567890'.indexOf(chr) < 0)
           return false;
   };
-</script>
-<script type="text/javascript">
-  // script for writing to json after form submission
+
+  function saveTo() {
+    var sale = document.getElementsByClassName('r1');
+    var atttendance = document.getElementsByClassName('r2');
+
+    console.log("fifjekljslkjflsdj");
+
+  }
+
+
 
 </script>

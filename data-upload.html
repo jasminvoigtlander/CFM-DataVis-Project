@@ -25,7 +25,7 @@
                 <a class='sf-with-ul' href='graphs.html'>Graphs</a>
               </li>
               <li>
-                <a class='sf-with-ul' href='data-upload.html'>Upload Data</a>
+                <a class='sf-with-ul' href='data-upload.html'>Data Upload</a>
               </li>
               <li>
                 <a class='sf-with-ul' href='support.html'>Support</a>
@@ -44,11 +44,11 @@
         <div class='row'>
           <div class='upload-form'>
             <div class="toggle">
-              <br>What data type are you uploading?</br>
-              <div id="saleRadio">
+              <br>What type of data are you updating?</br>
+              <div id= "saleRadio">
                 <input id="r1" class="form-radio" type="radio" name="graphs" value="SalesRadio" onchange="salesInputs()"> Sales<br>
               </div>
-              <div id=attendanceRadio>
+              <div id = attendanceRadio>
                 <input id="r2" class="form-radio" type="radio" name="graphs" value="AttendanceRadio" onchange="attendanceInputs()"> Attendance<br>
               </div>
               <br>
@@ -80,7 +80,9 @@
                 </div>
                 <input id='date' name='date' type ='date' class='form-item' required><br>
                 <div class='button-container'>
-                  <button type="button" class='primary-action' onclick="saveTo()">Upload Data</button>
+                  <button type="button" id="myBtnNeg" class='secondary-action' onclick="openModalNeg()">Cancel</button>
+                  <button type="button"  id="myBtn" class='primary-action' onclick="openModal()">Upload Data</button>
+
                 </div>
               </form>
           </div>
@@ -89,8 +91,86 @@
     </div>
   </div>
 </div>
-<div id="snackbar">Data Uploaded</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>New data uploaded successfully!</p>
+  </div>
+
+</div>
+
+<div id="myModalNeg" class="modal-neg">
+
+  <!-- Modal content -->
+  <div class="modal-content-neg">
+    <span class="close">&times;</span>
+    <p>No new data added.</p>
+  </div>
+
+</div>
+
 <script>
+  function openModal() {
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+  }
+
+  function openModalNeg() {
+    // Get the modal
+    var modal = document.getElementById('myModalNeg');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtnNeg");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[1];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+  }
+
+
   function salesInputs() {
       $("#data-form").show();
 
@@ -135,10 +215,6 @@
   }
 
   function saveTo() {
-    var x = document.getElementById("snackbar");
-    x.className = "show";
-    setTimeout(function() { x.className = x.className.replace('show', ''); }, 3000);
-
     var sale = document.getElementById('r1');
     var att = document.getElementById('r2');
 
@@ -170,7 +246,7 @@
       var dataNum = document.getElementById('attendance').value;
       var date = document.getElementById('date').value;
       date = date.toString();
-      // date = reformatDate(date);
+      date = reformatDate(date);
       dataNum = parseInt(dataNum);
 
       // console.log(sm);
@@ -182,58 +258,10 @@
 
   }
 
-  // function reformatDate(dateString) {
-  //   return dateString.substring(5, 7) + "/" + dateString.substr(8, 2) + "/" + dateString.substring(0, 4);
-  // }
-  //
-  //
-  // function addSaleData(m, v, s, d) {
-  //   $.getJSON("sales.json", function(json) {
-  //
-  //     var newSale = {
-  //       timestamp: d,
-  //       market: m,
-  //       vendorCategory: v,
-  //       sales: s,
-  //       date: d,
-  //       month: parseInt(d.substr(0,2)),
-  //       day:  parseInt(d.substr(3,2)),
-  //       year:  parseInt(d.substr(6,4)),
-  //       high:"",
-  //       low:"",
-  //       precip:""
-  //     };
-  //
-  //     json.push(newSale);
-  //     console.log(json[json.length-1]);
-  //     // console.log(JSON.stringify(json));
-  //     postSale(JSON.stringify(json, null, '\t'));
-  //
-  //     // console.log(json[0]); // this will show the info it in firebug console
-  //   });
-  // }
-  //
-  // function postSale(sale) {
-  //   // $.ajax({
-  //   //   type: 'send',
-  //   //   url: 'sales.json',
-  //   //   data: sale,
-  //   //   success: function() {
-  //   //     console.log('djfhkajfhdsjhf');
-  //   //   }
-  //   // });
-  // }
-  //
-  // function success() {
-  //   console.log("yeeet");
-  // }
-  //
-  // function addAttendanceData(m, a, d) {
-  //   $.getJSON("attendance.json", function(json) {
-  //     // console.log(json[0]); // this will show the info it in firebug console
-  //   });
-  //
-  // }
+  function reformatDate(dateString) {
+    return dateString.substring(5, 7) + "/" + dateString.substr(8, 2) + "/" + dateString.substring(0, 4);
+  }
+
 
 
   // Disable symbols and letters from Sales and Attendance input

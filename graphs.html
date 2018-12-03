@@ -55,17 +55,17 @@
               <span>Data Type</span>
             </div>
             <div class='expanded'>
-                <span id='checkbox'><input type='checkbox' value='sales'>Sales</span>
-                <span id='checkbox'><input type='checkbox' value='attendance'>Attendance</span>
+                <span id='checkbox'><input type='radio' name='data-type' value='sales'>Sales</span>
+                <span id='checkbox'><input type='radio' name ='data-type' value='attendance'>Attendance</span>
             </div>
             <div class='filter-row'>
                 <span>Market</span>
             </div>
             <div class='expanded markets'>
-                <span id='checkbox'><input type='checkbox' value='pcfm'>PCFM</span>
-                <span id='checkbox'><input type='checkbox'  value='eav'>EAV</span>
-                <span id='checkbox'><input type='checkbox' value='dfm'>DFM</span>
-                <span id='checkbox' class='next-line'><input type='checkbox' value='gpfm'>GPFM</span>
+                <span id='checkbox'><input type='radio' name='market' value='pcfm'>PCFM</span>
+                <span id='checkbox'><input type='radio' name='market' value='eav'>EAV</span>
+                <span id='checkbox'><input type='radio' name='market' value='dfm'>DFM</span>
+                <span id='checkbox' class='next-line'><input type='radio' name='market' value='gpfm'>GPFM</span>
             </div>
           </div>
           <div class='graphs'>
@@ -1662,17 +1662,17 @@
 
   //Add filtering actions
   function clearAll() {
-    $('input[type="checkbox"]:checked').prop('checked', false);
+    $('input[type="radio"]:checked').prop('checked', false);
     updateDisplayedGraphs();
   }
-  $('input[type="checkbox"]').on('change', function () {
+  $('input[type="radio"]').on('change', function () {
     updateDisplayedGraphs();
   });
   
   function updateDisplayedGraphs() {
     var checkedElements = [];
     var allGraphs = document.getElementsByClassName('graph');
-    $("input[type='checkbox']:checked").each(function(){
+    $("input[type='radio']:checked").each(function(){
       checkedElements.push($(this).val());
     });
     if (checkedElements.every(elem => (document.getElementById('allSales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {

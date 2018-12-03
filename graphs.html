@@ -8,6 +8,7 @@
 <script src="plugins/chartjs-plugin-zoom/chartjs-plugin-zoom.js"></script>
 <script type="text/javascript" src="sales.json"></script>
 <script type="text/javascript" src="attendance.json"></script>
+<script type="text/javascript" src="dashboard.json"></script>
 
 <div id='header'>
   <div class='content shadow radius-bottom'>
@@ -22,13 +23,13 @@
           <nav id='navigation'>
             <ul class='menu sf-arrows'>
               <li>
-                <a class='sf-with-ul' href='dashboard.html'>Dashboard</a>
+                <a class='sf-with-ul' onclick='displayDash()'>Dashboard</a>
               </li>
               <li>
-                <a class='sf-with-ul' href='graphs.html'>Graphs</a>
+                <a class='sf-with-ul' onclick='displayGraphs()'>Graphs</a>
               </li>
               <li>
-                <a class='sf-with-ul' href='data-upload.html'>Data Upload</a>
+                <a class='sf-with-ul' href='data-upload.html'>Upload Data</a>
               </li>
               <li>
                 <a class='sf-with-ul' href='support.html'>Support</a>
@@ -40,7 +41,7 @@
     </div>
   </div>
 </div>
-<div id='footer'>
+<div id='footer-graphs'>
   <div class='content shadow radius-top'>
     <div class='padded'>
       <div class='outline'>
@@ -69,79 +70,79 @@
           </div>
           <div class='graphs'>
               <div id='all-sales' class='graph-div'>
-                  <img src='images/add.png'>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
                   <canvas id="allSales" data-category='sales' width='300' height="150"></canvas>
               </div>
               <div id='sales-market' class='graph-div'>
-                  <img src='images/add.png'>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
                   <canvas id="salesMarket" data-category='sales' width='300' height="150"></canvas>
               </div>
               <div id='sales-vendor' class='graph-div'>
-                  <img src='images/add.png'>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
                   <canvas id="salesVendor" data-category='sales' width='300' height="150"></canvas>
               </div>
               <div id='pcfm-sales' class='graph-div'>
-                  <img src='images/add.png'>
-                  <canvas id="PCFMsales" data-category='sales pcfm' width='300' height="150"></canvas>
-              </div>
-              <div id='pcfm-vendor' class='graph-div'>
-                  <img src='images/add.png'>
-                  <canvas id="PCFMvendor" data-category='sales pcfm' width='300' height="150"></canvas>
-              </div>
-              <div id='eav-vendor' class='graph-div'>
-                  <img src='images/add.png'>
-                  <canvas id="EAVvendor" data-category='sales eav' width='300' height="150"></canvas>
-              </div>
-              <div id='dfm-vendor' class='graph-div'>
-                  <img src='images/add.png'>
-                  <canvas id="DFMvendor" data-category='sales dfm' width='300' height="150"></canvas>
-              </div>
-              <div id='gpfm-vendor' class='graph-div'>
-                  <img src='images/add.png'>
-                  <canvas id="GPFMvendor" data-category='sales gpfm' width='300' height="150"></canvas>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="pcfmSales" data-category='sales pcfm' width='300' height="150"></canvas>
               </div>
               <div id='eav-sales' class='graph-div'>
-                  <img src='images/add.png'>
-                  <canvas id="EAVsales" data-category='sales eav' width='300' height="150"></canvas>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="eavSales" data-category='sales eav' width='300' height="150"></canvas>
               </div>
               <div id='dfm-sales' class='graph-div'>
-                  <img src='images/add.png'>
-                  <canvas id="DFMsales" data-category='sales dfm' width='300' height="150"></canvas>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="dfmSales" data-category='sales dfm' width='300' height="150"></canvas>
               </div>
               <div id='gpfm-sales' class='graph-div'>
-                  <img src='images/add.png'>
-                  <canvas id="GPFMsales" data-category='sales gpfm' width='300' height="150"></canvas>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="gpfmSales" data-category='sales gpfm' width='300' height="150"></canvas>
+              </div>
+              <div id='pcfm-vendor' class='graph-div'>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="pcfmVendor" data-category='sales pcfm' width='300' height="150"></canvas>
+              </div>
+              <div id='eav-vendor' class='graph-div'>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="eavVendor" data-category='sales eav' width='300' height="150"></canvas>
+              </div>
+              <div id='dfm-vendor' class='graph-div'>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="dfmVendor" data-category='sales dfm' width='300' height="150"></canvas>
+              </div>
+              <div id='gpfm-vendor' class='graph-div'>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="gpfmVendor" data-category='sales gpfm' width='300' height="150"></canvas>
               </div>
               <div id='precip-sales' class='graph-div'>
-                  <img src='images/add.png'>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
                   <canvas id="precipSales" data-category='sales' width='300' height="150"></canvas>
               </div>
               <div id='all-attendance' class='graph-div'>
-                  <img src='images/add.png'>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
                   <canvas id="allAttendance" data-category='attendance' width='300' height="150"></canvas> 
               </div>
               <div id='attendance-market' class='graph-div'>
-                  <img src='images/add.png'>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
                   <canvas id="attendanceMarket" data-category='attendance' width='300' height="150"></canvas>
               </div>
               <div id='pcfm-attendance' class='graph-div'>
-                  <img src='images/add.png'>
-                  <canvas id="PCFMattendance" data-category='attendance pcfm' width='300' height="150"></canvas>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="pcfmAttendance" data-category='attendance pcfm' width='300' height="150"></canvas>
               </div>
               <div id='eav-attendance' class='graph-div'>
-                  <img src='images/add.png'>
-                  <canvas id="EAVattendance" data-category='attendance eav' width='300' height="150"></canvas>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="eavAttendance" data-category='attendance eav' width='300' height="150"></canvas>
               </div>
               <div id='dfm-attendance' class='graph-div'>
-                  <img src='images/add.png'>
-                  <canvas id="DFMattendance" data-category='attendance dfm' width='300' height="150"></canvas>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="dfmAttendance" data-category='attendance dfm' width='300' height="150"></canvas>
               </div>
               <div id='gpfm-attendance' class='graph-div'>
-                  <img src='images/add.png'>
-                  <canvas id="GPFMattendance" data-category='attendance gpfm' width='300' height="150"></canvas>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="gpfmAttendance" data-category='attendance gpfm' width='300' height="150"></canvas>
               </div>
               <div id='precip-attendance' class='graph-div'>
-                  <img src='images/add.png'>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
                   <canvas id="precipAttendance" data-category='attendance' width='300' height="150"></canvas>
               </div>
           </div>
@@ -151,7 +152,50 @@
   </div>
 </div>
 
+<div id="snackbar">Added to Dashboard</div>
+<div id='footer-dash'>
+  <div class='content shadow radius-top'>
+    <div class='padded'>
+      <div class='outline'>
+        <div class='row'>
+          <div class='dashboard'>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
+  /////////////////Dashboard Code/////////////////
+
+  //Parse Dashboard JSON
+  $.getJSON('dashboard.json', function (data) {
+    for(var i = 0; i < data.length; i++) {
+      document.getElementsByClassName('dashboard')[0].appendChild(document.getElementById(data[i].name));
+    }
+  });
+  var dashboardGraphs = [];
+  //Change this to push to dashboard.json
+  function addToDash(event) {
+    dashboardGraphs.push(event.target.parentElement.id.replace(/(-.)/g,function(x){return x[1].toUpperCase()}));
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(function() { x.className = x.className.replace('show', ''); }, 3000);
+  }
+  function displayGraphs() {
+    document.getElementById('footer-dash').style.display = 'none';
+    document.getElementById('footer-graphs').style.display = 'flex';
+  }
+  function displayDash() {
+    document.getElementById('footer-graphs').style.display = 'none';
+    document.getElementById('footer-dash').style.display = 'flex';
+    for (var i = 0; i < dashboardGraphs.length; i++) {
+      document.getElementsByClassName('dashboard')[0].appendChild(document.getElementById(dashboardGraphs[i]));
+    }
+  }
+
+  /////////////////Dashboard Code/////////////////
+
   //Parse Sales JSON
   $.getJSON('sales.json', function (data) {
     //Instantiate x and y arrays for charts
@@ -373,6 +417,12 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'Overall Sales',
@@ -436,6 +486,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'Sales Per Market',
@@ -481,6 +534,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'Sales Per Vendor Category',
@@ -516,8 +572,8 @@
     });
 
     //Create PCFM Sales per Vendor Category Graph
-    var ctx = document.getElementById('PCFMvendor');
-    var PCFMvendor = new Chart(ctx, {
+    var ctx = document.getElementById('pcfmVendor');
+    var pcfmVendor = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: salesVendorX,
@@ -529,9 +585,12 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
-          text: 'PCFM Sales Per Vendor Category',
+          text: 'Ponce City Sales Per Vendor Category',
           fontColor: 'rgba(0,0,0,0.6)',
           fontFamily: 'Droid Serif'
         },
@@ -564,8 +623,8 @@
     });
 
     //Create EAV Sales per Vendor Category Graph
-    var ctx = document.getElementById('EAVvendor');
-    var EAVvendor = new Chart(ctx, {
+    var ctx = document.getElementById('eavVendor');
+    var eavVendor = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: salesVendorX,
@@ -577,9 +636,12 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
-          text: 'EAV Sales Per Vendor Category',
+          text: 'East Atlanta Village Sales Per Vendor Category',
           fontColor: 'rgba(0,0,0,0.6)',
           fontFamily: 'Droid Serif'
         },
@@ -612,8 +674,8 @@
     });
 
     //Create DFM Sales per Vendor Category Graph
-    var ctx = document.getElementById('DFMvendor');
-    var PCFMvendor = new Chart(ctx, {
+    var ctx = document.getElementById('dfmVendor');
+    var dfmVendor = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: salesVendorX,
@@ -625,9 +687,12 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
-          text: 'DFM Sales Per Vendor Category',
+          text: 'Decatur Sales Per Vendor Category',
           fontColor: 'rgba(0,0,0,0.6)',
           fontFamily: 'Droid Serif'
         },
@@ -660,8 +725,8 @@
     });
 
     //Create GPFM Sales per Vendor Category Graph
-    var ctx = document.getElementById('GPFMvendor');
-    var PCFMvendor = new Chart(ctx, {
+    var ctx = document.getElementById('gpfmVendor');
+    var gpfmVendor = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: salesVendorX,
@@ -673,9 +738,12 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
-          text: 'GPFM Sales Per Vendor Category',
+          text: 'Grant Park Sales Per Vendor Category',
           fontColor: 'rgba(0,0,0,0.6)',
           fontFamily: 'Droid Serif'
         },
@@ -708,8 +776,8 @@
     });
 
     //Create PCFM Sales Graph
-    var ctx = document.getElementById('PCFMsales');
-    var PCFMsales = new Chart(ctx, {
+    var ctx = document.getElementById('pcfmSales');
+    var pcfmSales = new Chart(ctx, {
       type: 'line',
       data: {
         labels: PCFMsalesX,
@@ -721,6 +789,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'Ponce City Sales',
@@ -771,8 +842,8 @@
     });
 
     //Create EAV Sales Graph
-    var ctx = document.getElementById('EAVsales');
-    var EAVsales = new Chart(ctx, {
+    var ctx = document.getElementById('eavSales');
+    var eavSales = new Chart(ctx, {
       type: 'line',
       data: {
         labels: EAVsalesX,
@@ -784,6 +855,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'East Atlanta Village Sales',
@@ -834,8 +908,8 @@
     });
 
     //Create DFM Sales Graph
-    var ctx = document.getElementById('DFMsales');
-    var DFMsales = new Chart(ctx, {
+    var ctx = document.getElementById('dfmSales');
+    var dfmSales = new Chart(ctx, {
       type: 'line',
       data: {
         labels: DFMsalesX,
@@ -847,6 +921,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'Decatur Sales',
@@ -897,8 +974,8 @@
     });
 
     //Create GPFM Sales Graph
-    var ctx = document.getElementById('GPFMsales');
-    var GPFMsales = new Chart(ctx, {
+    var ctx = document.getElementById('gpfmSales');
+    var gpfmSales = new Chart(ctx, {
       type: 'line',
       data: {
         labels: GPFMsalesX,
@@ -910,6 +987,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'Grant Park Sales',
@@ -973,6 +1053,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'Precipitation Probability vs. Sales',
@@ -1145,6 +1228,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'Overall Attendance',
@@ -1207,6 +1293,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'Attendance Per Market',
@@ -1239,8 +1328,8 @@
     });
 
     //Create PCFM Attendance Graph
-    var ctx = document.getElementById('PCFMattendance');
-    var PCFMattendance = new Chart(ctx, {
+    var ctx = document.getElementById('pcfmAttendance');
+    var pcfmAttendance = new Chart(ctx, {
       type: 'line',
       data: {
         labels: PCFMattendanceX,
@@ -1253,6 +1342,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'Ponce City Attendance',
@@ -1302,8 +1394,8 @@
     });
 
     //Create EAV Attendance Graph
-    var ctx = document.getElementById('EAVattendance');
-    var EAVattendance = new Chart(ctx, {
+    var ctx = document.getElementById('eavAttendance');
+    var eavAttendance = new Chart(ctx, {
       type: 'line',
       data: {
         labels: EAVattendanceX,
@@ -1316,6 +1408,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'East Atlanta Village Attendance',
@@ -1365,8 +1460,8 @@
     });
 
     //Create DFM Attendance Graph
-    var ctx = document.getElementById('DFMattendance');
-    var DFMattendance = new Chart(ctx, {
+    var ctx = document.getElementById('dfmAttendance');
+    var dfmAttendance = new Chart(ctx, {
       type: 'line',
       data: {
         labels: DFMattendanceX,
@@ -1379,6 +1474,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'Decatur Attendance',
@@ -1428,8 +1526,8 @@
     });
 
     //Create GPFM Attendance Graph
-    var ctx = document.getElementById('GPFMattendance');
-    var GPFMattendance = new Chart(ctx, {
+    var ctx = document.getElementById('gpfmAttendance');
+    var gpfmAttendance = new Chart(ctx, {
       type: 'line',
       data: {
         labels: GPFMattendanceX,
@@ -1442,6 +1540,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'Grant Park Attendance',
@@ -1504,6 +1605,9 @@
         }]
       },
       options: {
+        animation: {
+            duration: 0
+        },
         title: {
           display: true,
           text: 'Precipitation Probability vs. Attendance',
@@ -1580,42 +1684,42 @@
     } else {
       document.getElementById('sales-vendor').style.display = 'none';
     }
-    if (checkedElements.every(elem => (document.getElementById('PCFMsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+    if (checkedElements.every(elem => (document.getElementById('pcfmSales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('pcfm-sales').style.display = 'block';
     } else {
       document.getElementById('pcfm-sales').style.display = 'none';
     }
-    if (checkedElements.every(elem => (document.getElementById('PCFMvendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+    if (checkedElements.every(elem => (document.getElementById('pcfmVendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('pcfm-vendor').style.display = 'block';
     } else {
       document.getElementById('pcfm-vendor').style.display = 'none';
     }
-    if (checkedElements.every(elem => (document.getElementById('EAVvendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+    if (checkedElements.every(elem => (document.getElementById('eavVendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('eav-vendor').style.display = 'block';
     } else {
       document.getElementById('eav-vendor').style.display = 'none';
     }
-    if (checkedElements.every(elem => (document.getElementById('DFMvendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+    if (checkedElements.every(elem => (document.getElementById('dfmVendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('dfm-vendor').style.display = 'block';
     } else {
       document.getElementById('dfm-vendor').style.display = 'none';
     }
-    if (checkedElements.every(elem => (document.getElementById('GPFMvendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+    if (checkedElements.every(elem => (document.getElementById('gpfmVendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('gpfm-vendor').style.display = 'block';
     } else {
       document.getElementById('gpfm-vendor').style.display = 'none';
     }
-    if (checkedElements.every(elem => (document.getElementById('EAVsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+    if (checkedElements.every(elem => (document.getElementById('eavSales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('eav-sales').style.display = 'block';
     } else {
       document.getElementById('eav-sales').style.display = 'none';
     }
-    if (checkedElements.every(elem => (document.getElementById('DFMsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+    if (checkedElements.every(elem => (document.getElementById('dfmSales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('dfm-sales').style.display = 'block';
     } else {
       document.getElementById('dfm-sales').style.display = 'none';
     }
-    if (checkedElements.every(elem => (document.getElementById('GPFMsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+    if (checkedElements.every(elem => (document.getElementById('gpfmSales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('gpfm-sales').style.display = 'block';
     } else {
       document.getElementById('gpfm-sales').style.display = 'none';
@@ -1635,22 +1739,22 @@
     } else {
       document.getElementById('attendance-market').style.display = 'none';
     }
-    if (checkedElements.every(elem => (document.getElementById('PCFMattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+    if (checkedElements.every(elem => (document.getElementById('pcfmAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('pcfm-attendance').style.display = 'block';
     } else {
       document.getElementById('pcfm-attendance').style.display = 'none';
     }
-    if (checkedElements.every(elem => (document.getElementById('EAVattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+    if (checkedElements.every(elem => (document.getElementById('eavAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('eav-attendance').style.display = 'block';
     } else {
       document.getElementById('eav-attendance').style.display = 'none';
     }
-    if (checkedElements.every(elem => (document.getElementById('DFMattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+    if (checkedElements.every(elem => (document.getElementById('dfmAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('dfm-attendance').style.display = 'block';
     } else {
       document.getElementById('dfm-attendance').style.display = 'none';
     }
-    if (checkedElements.every(elem => (document.getElementById('GPFMattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+    if (checkedElements.every(elem => (document.getElementById('gpfmAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('gpfm-attendance').style.display = 'block';
     } else {
       document.getElementById('gpfm-attendance').style.display = 'none';

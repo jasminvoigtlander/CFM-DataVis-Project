@@ -25,7 +25,7 @@
                 <a class='sf-with-ul' href='graphs.html'>Graphs</a>
               </li>
               <li>
-                <a class='sf-with-ul' href='data-upload.html'>Data Upload</a>
+                <a class='sf-with-ul' href='data-upload.html'>Upload Data</a>
               </li>
               <li>
                 <a class='sf-with-ul' href='support.html'>Support</a>
@@ -44,11 +44,11 @@
         <div class='row'>
           <div class='upload-form'>
             <div class="toggle">
-              <br>What type of data are you updating?</br>
-              <div id= "saleRadio">
+              <br>What data type are you uploading?</br>
+              <div id="saleRadio">
                 <input id="r1" class="form-radio" type="radio" name="graphs" value="SalesRadio" onchange="salesInputs()"> Sales<br>
               </div>
-              <div id = attendanceRadio>
+              <div id=attendanceRadio>
                 <input id="r2" class="form-radio" type="radio" name="graphs" value="AttendanceRadio" onchange="attendanceInputs()"> Attendance<br>
               </div>
               <br>
@@ -80,7 +80,6 @@
                 </div>
                 <input id='date' name='date' type ='date' class='form-item' required><br>
                 <div class='button-container'>
-                  <button class='secondary-action'>Cancel</button>
                   <button type="button" class='primary-action' onclick="saveTo()">Upload Data</button>
                 </div>
               </form>
@@ -90,6 +89,7 @@
     </div>
   </div>
 </div>
+<div id="snackbar">Data Uploaded</div>
 <script>
   function salesInputs() {
       $("#data-form").show();
@@ -135,6 +135,10 @@
   }
 
   function saveTo() {
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(function() { x.className = x.className.replace('show', ''); }, 3000);
+
     var sale = document.getElementById('r1');
     var att = document.getElementById('r2');
 
@@ -166,7 +170,7 @@
       var dataNum = document.getElementById('attendance').value;
       var date = document.getElementById('date').value;
       date = date.toString();
-      date = reformatDate(date);
+      // date = reformatDate(date);
       dataNum = parseInt(dataNum);
 
       // console.log(sm);

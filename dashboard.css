@@ -174,7 +174,36 @@ a {
     border-right: 6px solid transparent;
     border-bottom: 6px solid #2d8464;
 }
-
 .nav-arrow ~ .dropdown-content {
     display: block;
+}
+#footer {
+    margin: 0px auto 0px;
+    padding: 0px;
+    bottom: 0;
+    transform: translateY(8px);
+    display: flex;
+    justify-content: center;
+}
+#footer .content {
+    position: relative;
+    margin-top: 24px;
+    margin: 0px 170px 0px;
+}
+.radius-top {
+    border-radius: 12px 12px 0px 0px;
+    -moz-border-radius: 12px 12px 0px 0px;
+    -khtml-border-radius: 12px 12px 0px 0px;
+    -webkit-border-radius: 12px 12px 0px 0px;
+}
+#footer .padded {
+    padding-bottom: 0px;
+}
+#footer .outline {
+    border-bottom: none;
+    border-radius: 6px 6px 0px 0px;
+}
+.row {
+    width: 100%;
+    margin: 0 auto;
 }

@@ -174,15 +174,13 @@
   </div>
 </div>
 <script>
-  /////////////////Dashboard Code/////////////////
-
+  //Load correct page based off hash
   if (window.location.hash == '#dashboard') {
     displayDashboard();
   } else {
     document.getElementById('footer-dash').style.display = 'none';
     document.getElementById('footer-graphs').style.display = 'flex';
   }
-
   function displayDashboard() {
     document.getElementById('footer-graphs').style.display = 'none';
     document.getElementById('footer-dash').style.display = 'flex';
@@ -192,12 +190,18 @@
       }
     }
   }
+
+  /////////////////Dashboard Code/////////////////
+
   //Parse Dashboard JSON
   $.getJSON('dashboard.json', function (data) {
     for(var i = 0; i < data.length; i++) {
       document.getElementsByClassName('dashboard')[0].appendChild(document.getElementById(data[i].name));
     }
   });
+
+  /////////////////Graphs Code/////////////////
+
   var dashboardGraphs = [];
   //Change this to push to dashboard.json
   function addToDash(event) {
@@ -206,9 +210,6 @@
     x.className = "show";
     setTimeout(function() { x.className = x.className.replace('show', ''); }, 3000);
   }
-
-
-  /////////////////Dashboard Code/////////////////
 
   //Parse Sales JSON
   $.getJSON('sales.json', function (data) {

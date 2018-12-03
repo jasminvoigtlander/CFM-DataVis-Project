@@ -80,7 +80,7 @@
                 </div>
                 <input id='date' name='date' type ='date' class='form-item' required><br>
                 <div class='button-container'>
-                  <button class='primary-action' onclick="saveTo()">Upload Data</button>
+                  <button type='button' class='primary-action' onclick="saveTo()">Upload Data</button>
                 </div>
               </form>
           </div>
@@ -91,6 +91,10 @@
 </div>
 <div id="snackbar">Data Uploaded</div>
 <script>
+  //Prevent submit form default
+  // $(".primary-action").click(function(event) {
+  //   event.preventDefault();
+  // });
   function salesInputs() {
       $("#data-form").show();
       var y = document.getElementById('attendanceData');
@@ -121,46 +125,65 @@
     y.style.display = "block";
     b.required = true;
   }
+
   function saveTo() {
-    var x = document.getElementById("snackbar");
-    x.className = "show";
-    setTimeout(function() { x.className = x.className.replace('show', ''); }, 3000);
     var sale = document.getElementById('r1');
     var att = document.getElementById('r2');
     if (sale.checked) {
       console.log("SALE UPLOAD");
-      var market = document.getElementById('markets');
-      var sm = market.options[market.selectedIndex].value;
-      var vendor = document.getElementById('vc');
-      var sv = vendor.options[vendor.selectedIndex].value;
-      var dataNum = document.getElementById('sales').value;
-      var date = document.getElementById('date').value;
-      date = date.toString();
-      date = reformatDate(date);
-      dataNum = parseInt(dataNum);
-      // console.log(sm);
-      // console.log(sv);
-      // console.log(dataNum);
-      // console.log(date);
-      // addSaleData(sm, sv, dataNum, date);
+      if (document.getElementById('markets').options.selectedIndex !== 0 
+        && document.getElementById('vc').options.selectedIndex 
+        && document.getElementById('sales').value !== ''
+        && document.getElementById('date').value !== '') {
+          var market = document.getElementById('markets');
+          var sm = market.options[market.selectedIndex].value;
+          var vendor = document.getElementById('vc');
+          var sv = vendor.options[vendor.selectedIndex].value;
+          var dataNum = document.getElementById('sales').value;
+          var date = document.getElementById('date').value;
+          date = date.toString();
+          date = reformatDate(date);
+          dataNum = parseInt(dataNum);
+          // console.log(sm);
+          // console.log(sv);
+          // console.log(dataNum);
+          // console.log(date);
+          // addSaleData(sm, sv, dataNum, date);
+
+          var x = document.getElementById("snackbar");
+          x.className = "show";
+          setTimeout(function() { x.className = x.className.replace('show', ''); }, 3000);
+        } else {
+          alert('Please fill in all fields.');
+        }
     } else if (att.checked) {
       console.log("ATTENDANCE UPLOAD");
-      var market = document.getElementById('markets');
-      var sm = market.options[market.selectedIndex].value;
-      var dataNum = document.getElementById('attendance').value;
-      var date = document.getElementById('date').value;
-      date = date.toString();
-      // date = reformatDate(date);
-      dataNum = parseInt(dataNum);
-      // console.log(sm);
-      // console.log(dataNum);
-      // console.log(date.toString());
-       // addAttendanceData(sm, dataNum, date);
+      if (document.getElementById('markets').options.selectedIndex !== 0 
+        && document.getElementById('attendance').value !== ''
+        && document.getElementById('date').value !== '') {
+          var market = document.getElementById('markets');
+          var sm = market.options[market.selectedIndex].value;
+          var dataNum = document.getElementById('attendance').value;
+          var date = document.getElementById('date').value;
+          date = date.toString();
+          date = reformatDate(date);
+          dataNum = parseInt(dataNum);
+          // console.log(sm);
+          // console.log(dataNum);
+          // console.log(date.toString());
+          // addAttendanceData(sm, dataNum, date);
+
+          var x = document.getElementById("snackbar");
+          x.className = "show";
+          setTimeout(function() { x.className = x.className.replace('show', ''); }, 3000);
+        } else {
+          alert('Please fill in all fields.');
+        }
     }
   }
-  // function reformatDate(dateString) {
-  //   return dateString.substring(5, 7) + "/" + dateString.substr(8, 2) + "/" + dateString.substring(0, 4);
-  // }
+  function reformatDate(dateString) {
+    return dateString.substring(5, 7) + "/" + dateString.substr(8, 2) + "/" + dateString.substring(0, 4);
+  }
   //
   //
   // function addSaleData(m, v, s, d) {

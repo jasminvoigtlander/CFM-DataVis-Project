@@ -263,7 +263,7 @@
   /////////////////Dashboard Code/////////////////
 
   //Parse Dashboard JSON
-  $.getJSON('dashboard.json', function (data) {
+  $.getJSON('https://raw.githubusercontent.com/jasminvoigtlander/CFM-DataVis-Project/master/dashboard.json', function (data) {
     for(var i = 0; i < data.length; i++) {
       document.getElementById(data[i].name + '1').appendChild($('#' + data[i].name.replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
       document.getElementById(data[i].name + '1').style.display = 'block';
@@ -282,7 +282,7 @@
   }
 
   //Parse Sales JSON
-  $.getJSON('sales.json', function (data) {
+  $.getJSON('https://raw.githubusercontent.com/jasminvoigtlander/CFM-DataVis-Project/master/sales.json', function (data) {
     //Instantiate x and y arrays for charts
     var allSalesX = [];
     var allSalesY = [];
@@ -1258,7 +1258,7 @@
   });
 
   //Parse Attendance JSON
-  $.getJSON('attendance.json', function (data) {
+  $.getJSON('https://raw.githubusercontent.com/jasminvoigtlander/CFM-DataVis-Project/master/attendance.json', function (data) {
     //Instantiate x and y arrays for charts
     var allAttendanceX = [];
     var allAttendanceY = [];

@@ -6,9 +6,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="plugins/hammerjs/hammer.min.js"></script>
 <script src="plugins/chartjs-plugin-zoom/chartjs-plugin-zoom.js"></script>
-<script type="text/javascript" src="sales.json"></script>
+<!-- <script type="text/javascript" src="sales.json"></script>
 <script type="text/javascript" src="attendance.json"></script>
-<script type="text/javascript" src="dashboard.json"></script>
+<script type="text/javascript" src="dashboard.json"></script> -->
 
 <div id='header'>
   <div class='content shadow radius-bottom'>
@@ -241,7 +241,7 @@
   if (window.location.hash == '#dashboard') {
     displayDashboard();
   } else {
-    $.getJSON('dashboard.json', function (data) {
+    $.getJSON('https://raw.githubusercontent.com/jasminvoigtlander/CFM-DataVis-Project/master/dashboard.json', function (data) {
     for(var i = 0; i < data.length; i++) {
       document.getElementById(data[i].name).appendChild($('#' + data[i].name.replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
     }

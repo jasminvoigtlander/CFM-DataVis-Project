@@ -2054,5 +2054,10 @@
     } else {
       document.getElementById('precip-attendance').style.display = 'none';
     }
+    if (checkedElements.every(elem => (document.getElementById('tempAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('temp-attendance').style.display = 'block';
+    } else {
+      document.getElementById('temp-attendance').style.display = 'none';
+    }
   }
 </script>

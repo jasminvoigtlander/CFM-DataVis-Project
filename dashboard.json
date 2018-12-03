@@ -1,8 +1,8 @@
 [
     {
-      "name": "eavSales"
+      "name": "eav-sales"
     },
     {
-      "name": "eavAttendance"
+      "name": "eav-attendance"
     }
 ]

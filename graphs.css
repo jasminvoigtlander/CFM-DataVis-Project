@@ -149,6 +149,17 @@
     background: url('images/add-hover.png') no-repeat;
     cursor: pointer;
 }
+.dash-div .drag-icon {
+    height: 20px;
+    width: 20px;
+    float: right;
+    margin-right: 30px;
+    transform: translateY(25px);
+    background: url('images/drag.png') no-repeat;
+}
+.dash-div {
+    display: none;
+}
 #snackbar {
     visibility: hidden;
     min-width: 250px;

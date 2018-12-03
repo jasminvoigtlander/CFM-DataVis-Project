@@ -167,6 +167,69 @@
       <div class='outline'>
         <div class='row'>
           <div class='dashboard'>
+              <div id='all-sales1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='sales-market1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='sales-vendor1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='pcfm-sales1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='eav-sales1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='dfm-sales1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='gpfm-sales1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='pcfm-vendor1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='eav-vendor1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='dfm-vendor1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='gpfm-vendor1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='precip-sales1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='temp-sales1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='all-attendance1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='attendance-market1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='pcfm-attendance1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='eav-attendance1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='dfm-attendance1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='gpfm-attendance1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='precip-attendance1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
+              <div id='temp-attendance1' class='dash-div'>
+                  <div class='drag-icon'></div>
+              </div>
           </div>
         </div>
       </div>
@@ -178,6 +241,11 @@
   if (window.location.hash == '#dashboard') {
     displayDashboard();
   } else {
+    $.getJSON('dashboard.json', function (data) {
+    for(var i = 0; i < data.length; i++) {
+      document.getElementById(data[i].name).appendChild($('#' + data[i].name.replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
+    }
+    });
     document.getElementById('footer-dash').style.display = 'none';
     document.getElementById('footer-graphs').style.display = 'flex';
   }
@@ -186,7 +254,8 @@
     document.getElementById('footer-dash').style.display = 'flex';
     if (dashboardGraphs) {
       for (var i = 0; i < dashboardGraphs.length; i++) {
-        document.getElementsByClassName('dashboard')[0].appendChild(document.getElementById(dashboardGraphs[i]));
+        document.getElementById(dashboardGraphs[i] + '1').appendChild($('#' + dashboardGraphs[i].replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
+        document.getElementById(dashboardGraphs[i] + '1').style.display = 'block';
       }
     }
   }
@@ -196,7 +265,8 @@
   //Parse Dashboard JSON
   $.getJSON('dashboard.json', function (data) {
     for(var i = 0; i < data.length; i++) {
-      document.getElementsByClassName('dashboard')[0].appendChild(document.getElementById(data[i].name));
+      document.getElementById(data[i].name + '1').appendChild($('#' + data[i].name.replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
+      document.getElementById(data[i].name + '1').style.display = 'block';
     }
   });
 
@@ -205,7 +275,7 @@
   var dashboardGraphs = [];
   //Change this to push to dashboard.json
   function addToDash(event) {
-    dashboardGraphs.push(event.target.parentElement.id.replace(/(-.)/g,function(x){return x[1].toUpperCase()}));
+    dashboardGraphs.push(event.target.parentElement.id);
     var x = document.getElementById("snackbar");
     x.className = "show";
     setTimeout(function() { x.className = x.className.replace('show', ''); }, 3000);

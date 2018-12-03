@@ -23,10 +23,10 @@
           <nav id='navigation'>
             <ul class='menu sf-arrows'>
               <li>
-                <a class='sf-with-ul' onclick='displayDash()'>Dashboard</a>
+                <a class='sf-with-ul' onclick='displayDashboard()' href='graphs.html#dashboard'>Dashboard</a>
               </li>
               <li>
-                <a class='sf-with-ul' onclick='displayGraphs()'>Graphs</a>
+                <a class='sf-with-ul' href='graphs.html'>Graphs</a>
               </li>
               <li>
                 <a class='sf-with-ul' href='data-upload.html'>Upload Data</a>
@@ -168,6 +168,22 @@
 <script>
   /////////////////Dashboard Code/////////////////
 
+  if (window.location.hash == '#dashboard') {
+    displayDashboard();
+  } else {
+    document.getElementById('footer-dash').style.display = 'none';
+    document.getElementById('footer-graphs').style.display = 'flex';
+  }
+
+  function displayDashboard() {
+    document.getElementById('footer-graphs').style.display = 'none';
+    document.getElementById('footer-dash').style.display = 'flex';
+    if (dashboardGraphs) {
+      for (var i = 0; i < dashboardGraphs.length; i++) {
+        document.getElementsByClassName('dashboard')[0].appendChild(document.getElementById(dashboardGraphs[i]));
+      }
+    }
+  }
   //Parse Dashboard JSON
   $.getJSON('dashboard.json', function (data) {
     for(var i = 0; i < data.length; i++) {
@@ -182,17 +198,7 @@
     x.className = "show";
     setTimeout(function() { x.className = x.className.replace('show', ''); }, 3000);
   }
-  function displayGraphs() {
-    document.getElementById('footer-dash').style.display = 'none';
-    document.getElementById('footer-graphs').style.display = 'flex';
-  }
-  function displayDash() {
-    document.getElementById('footer-graphs').style.display = 'none';
-    document.getElementById('footer-dash').style.display = 'flex';
-    for (var i = 0; i < dashboardGraphs.length; i++) {
-      document.getElementsByClassName('dashboard')[0].appendChild(document.getElementById(dashboardGraphs[i]));
-    }
-  }
+
 
   /////////////////Dashboard Code/////////////////
 

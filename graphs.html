@@ -379,66 +379,34 @@
         precipSalesY[10] += data[i].sales;
       }
       //Temperature
-      if (data[i].temp !== null) {
-        if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 35) {
-          tempSalesY[0] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 40) {
-          tempSalesY[1] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 45) {
-          tempSalesY[2] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 50) {
-          tempSalesY[3] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 55) {
-          tempSalesY[4] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 60) {
-          tempSalesY[5] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 65) {
-          tempSalesY[6] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 70) {
-          tempSalesY[7] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 75) {
-          tempSalesY[8] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 80) {
-          tempSalesY[9] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 85) {
-          tempSalesY[10] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 90) {
-          tempSalesY[10] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 95) {
-          tempSalesY[10] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 100) {
-          tempSalesY[10] += data[i].sales;
-        }
-      } else {
-        if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 35) {
-          tempSalesY[0] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 40) {
-          tempSalesY[1] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 45) {
-          tempSalesY[2] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 50) {
-          tempSalesY[3] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 55) {
-          tempSalesY[4] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 60) {
-          tempSalesY[5] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 65) {
-          tempSalesY[6] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 70) {
-          tempSalesY[7] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 75) {
-          tempSalesY[8] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 80) {
-          tempSalesY[9] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 85) {
-          tempSalesY[10] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 90) {
-          tempSalesY[10] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 95) {
-          tempSalesY[10] += data[i].sales;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 100) {
-          tempSalesY[10] += data[i].sales;
-        }
+      if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 35) {
+        tempSalesY[0] += data[i].sales;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 40) {
+        tempSalesY[1] += data[i].sales;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 45) {
+        tempSalesY[2] += data[i].sales;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 50) {
+        tempSalesY[3] += data[i].sales;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 55) {
+        tempSalesY[4] += data[i].sales;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 60) {
+        tempSalesY[5] += data[i].sales;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 65) {
+        tempSalesY[6] += data[i].sales;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 70) {
+        tempSalesY[7] += data[i].sales;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 75) {
+        tempSalesY[8] += data[i].sales;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 80) {
+        tempSalesY[9] += data[i].sales;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 85) {
+        tempSalesY[10] += data[i].sales;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 90) {
+        tempSalesY[10] += data[i].sales;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 95) {
+        tempSalesY[10] += data[i].sales;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 100) {
+        tempSalesY[10] += data[i].sales;
       }
     }
     allSalesX.push(new Date(date));
@@ -1333,34 +1301,66 @@
         precipAttendanceY[10] += data[i].attendance;
       }
       //Temperature
-      if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 35) {
-        tempAttendanceY[0] += data[i].attendance;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 40) {
-        tempAttendanceY[1] += data[i].attendance;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 45) {
-        tempAttendanceY[2] += data[i].attendance;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 50) {
-        tempAttendanceY[3] += data[i].attendance;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 55) {
-        tempAttendanceY[4] += data[i].attendance;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 60) {
-        tempAttendanceY[5] += data[i].attendance;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 65) {
-        tempAttendanceY[6] += data[i].attendance;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 70) {
-        tempAttendanceY[7] += data[i].attendance;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 75) {
-        tempAttendanceY[8] += data[i].attendance;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 80) {
-        tempAttendanceY[9] += data[i].attendance;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 85) {
-        tempAttendanceY[10] += data[i].attendance;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 90) {
-        tempAttendanceY[10] += data[i].attendance;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 95) {
-        tempAttendanceY[10] += data[i].attendance;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 100) {
-        tempAttendanceY[10] += data[i].attendance;
+      if (data[i].temperature !== null) {
+        if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 35) {
+          tempAttendanceY[0] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 40) {
+          tempAttendanceY[1] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 45) {
+          tempAttendanceY[2] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 50) {
+          tempAttendanceY[3] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 55) {
+          tempAttendanceY[4] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 60) {
+          tempAttendanceY[5] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 65) {
+          tempAttendanceY[6] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 70) {
+          tempAttendanceY[7] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 75) {
+          tempAttendanceY[8] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 80) {
+          tempAttendanceY[9] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 85) {
+          tempAttendanceY[10] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 90) {
+          tempAttendanceY[10] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 95) {
+          tempAttendanceY[10] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 100) {
+          tempAttendanceY[10] += data[i].attendance;
+        }
+      } else {
+        if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 35) {
+          tempAttendanceY[0] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 40) {
+          tempAttendanceY[1] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 45) {
+          tempAttendanceY[2] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 50) {
+          tempAttendanceY[3] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 55) {
+          tempAttendanceY[4] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 60) {
+          tempAttendanceY[5] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 65) {
+          tempAttendanceY[6] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 70) {
+          tempAttendanceY[7] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 75) {
+          tempAttendanceY[8] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 80) {
+          tempAttendanceY[9] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 85) {
+          tempAttendanceY[10] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 90) {
+          tempAttendanceY[10] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 95) {
+          tempAttendanceY[10] += data[i].attendance;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 100) {
+          tempAttendanceY[10] += data[i].attendance;
+        }
       }
     }
     allAttendanceX.push(date);

@@ -68,10 +68,14 @@
             </div>
           </div>
           <div class='graphs'>
-              <canvas id="allSales" data-category='sales hi' width='300' height="150"></canvas>
+              <canvas id="allSales" data-category='sales' width='300' height="150"></canvas>
               <canvas id="salesMarket" data-category='sales' width='300' height="150"></canvas>
               <canvas id="salesVendor" data-category='sales' width='300' height="150"></canvas>
               <canvas id="PCFMsales" data-category='sales pcfm' width='300' height="150"></canvas>
+              <canvas id="PCFMvendor" data-category='sales pcfm' width='300' height="150"></canvas>
+              <canvas id="EAVvendor" data-category='sales eav' width='300' height="150"></canvas>
+              <canvas id="DFMvendor" data-category='sales dfm' width='300' height="150"></canvas>
+              <canvas id="GPFMvendor" data-category='sales gpfm' width='300' height="150"></canvas>
               <canvas id="EAVsales" data-category='sales eav' width='300' height="150"></canvas>
               <canvas id="DFMsales" data-category='sales dfm' width='300' height="150"></canvas>
               <canvas id="GPFMsales" data-category='sales gpfm' width='300' height="150"></canvas>
@@ -91,113 +95,6 @@
 </div>
 
 <script>
-  //Add collapsible filtering
-  var row = document.getElementsByClassName('filter-row');
-  for (var i = 0; i < row.length; i++) {
-    row[i].addEventListener('click', function () {
-      this.classList.toggle('active');
-      var content = this.nextElementSibling;
-      if (content.style.display === 'block') {
-        content.style.display = 'none';
-      } else {
-        content.style.display = 'block';
-      }
-    });
-  }
-
-  //Add filtering actions
-  function clearAll() {
-    $('input[type="checkbox"]:checked').prop('checked',false);
-    updateDisplayedGraphs();
-  }
-
-  $('input[type="checkbox"]').on('change', function () {
-    updateDisplayedGraphs();
-  });
-  
-  function updateDisplayedGraphs() {
-    var checkedElements = [];
-    var allGraphs = document.getElementsByClassName('graph');
-    $("input[type='checkbox']:checked").each(function(){
-      checkedElements.push($(this).val());
-    });
-    if (checkedElements.every(elem => (document.getElementById('allSales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('allSales').style.display = 'block';
-    } else {
-      document.getElementById('allSales').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('salesMarket').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('salesMarket').style.display = 'block';
-    } else {
-      document.getElementById('salesMarket').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('salesVendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('salesVendor').style.display = 'block';
-    } else {
-      document.getElementById('salesVendor').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('PCFMsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('PCFMsales').style.display = 'block';
-    } else {
-      document.getElementById('PCFMsales').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('EAVsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('EAVsales').style.display = 'block';
-    } else {
-      document.getElementById('EAVsales').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('DFMsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('DFMsales').style.display = 'block';
-    } else {
-      document.getElementById('DFMsales').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('GPFMsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('GPFMsales').style.display = 'block';
-    } else {
-      document.getElementById('GPFMsales').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('precipSales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('precipSales').style.display = 'block';
-    } else {
-      document.getElementById('precipSales').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('allAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('allAttendance').style.display = 'block';
-    } else {
-      document.getElementById('allAttendance').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('attendanceMarket').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('attendanceMarket').style.display = 'block';
-    } else {
-      document.getElementById('attendanceMarket').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('PCFMattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('PCFMattendance').style.display = 'block';
-    } else {
-      document.getElementById('PCFMattendance').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('EAVattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('EAVattendance').style.display = 'block';
-    } else {
-      document.getElementById('EAVattendance').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('DFMattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('DFMattendance').style.display = 'block';
-    } else {
-      document.getElementById('DFMattendance').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('GPFMattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('GPFMattendance').style.display = 'block';
-    } else {
-      document.getElementById('GPFMattendance').style.display = 'none';
-    }
-    if (checkedElements.every(elem => (document.getElementById('precipAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('precipAttendance').style.display = 'block';
-    } else {
-      document.getElementById('precipAttendance').style.display = 'none';
-    }
-  }
-
   //Parse Sales JSON
   $.getJSON('sales.json', function (data) {
     //Instantiate x and y arrays for charts
@@ -215,6 +112,10 @@
     var salesMarketY = [0, 0, 0, 0, 0];
     var salesVendorX = ['Non-Food Vendor', ['Packaged, Processed, and', 'Prepared Food Vendor'], "Farmer"];
     var salesVendorY = [0, 0, 0];
+    var PCFMvendorY = [0, 0, 0];
+    var EAVvendorY = [0, 0, 0];
+    var DFMvendorY = [0, 0, 0];
+    var GPFMvendorY = [0, 0, 0];
     var precipSalesX = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
     var precipSalesY = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     var date = '5/8/18';
@@ -296,6 +197,46 @@
       } else if (data[i].vendorCategory == 'Farmer') {
         salesVendorY[2] += data[i].sales;
       }
+      //PCFM Sales per Vendor Category
+      if (data[i].market == 'PCFM') {
+        if (data[i].vendorCategory == 'Non-Food Vendors' || data[i].vendorCategory == 'Non-Food Vendor') {
+          PCFMvendorY[0] += data[i].sales;
+        } else if (data[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
+          PCFMvendorY[1] += data[i].sales;
+        } else if (data[i].vendorCategory == 'Farmer') {
+          PCFMvendorY[2] += data[i].sales;
+        }
+      }
+      //EAV Sales per Vendor Category
+      if (data[i].market == 'EAV') {
+        if (data[i].vendorCategory == 'Non-Food Vendors' || data[i].vendorCategory == 'Non-Food Vendor') {
+          EAVvendorY[0] += data[i].sales;
+        } else if (data[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
+          EAVvendorY[1] += data[i].sales;
+        } else if (data[i].vendorCategory == 'Farmer') {
+          EAVvendorY[2] += data[i].sales;
+        }
+      }
+      //DFM Sales per Vendor Category
+      if (data[i].market == 'DFM-S' || data[i].market == 'DFM-W') {
+        if (data[i].vendorCategory == 'Non-Food Vendors' || data[i].vendorCategory == 'Non-Food Vendor') {
+          DFMvendorY[0] += data[i].sales;
+        } else if (data[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
+          DFMvendorY[1] += data[i].sales;
+        } else if (data[i].vendorCategory == 'Farmer') {
+          DFMvendorY[2] += data[i].sales;
+        }
+      }
+      //GPFM Sales per Vendor Category
+      if (data[i].market == 'GPFM') {
+        if (data[i].vendorCategory == 'Non-Food Vendors' || data[i].vendorCategory == 'Non-Food Vendor') {
+          GPFMvendorY[0] += data[i].sales;
+        } else if (data[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
+          GPFMvendorY[1] += data[i].sales;
+        } else if (data[i].vendorCategory == 'Farmer') {
+          GPFMvendorY[2] += data[i].sales;
+        }
+      }
       //Precipitation
       if ((Math.round(data[i].precip * 10) / 10) == 0) {
         precipSalesY[0] += data[i].sales;
@@ -339,6 +280,22 @@
     for (var i = 0; i < salesVendorY.length; i++) {
       var rounded = Math.round(salesVendorY[i]);
       salesVendorY[i] = rounded;
+    }
+    for (var i = 0; i < PCFMvendorY.length; i++) {
+      var rounded = Math.round(PCFMvendorY[i]);
+      PCFMvendorY[i] = rounded;
+    }
+    for (var i = 0; i < EAVvendorY.length; i++) {
+      var rounded = Math.round(EAVvendorY[i]);
+      EAVvendorY[i] = rounded;
+    }
+    for (var i = 0; i < DFMvendorY.length; i++) {
+      var rounded = Math.round(DFMvendorY[i]);
+      DFMvendorY[i] = rounded;
+    }
+    for (var i = 0; i < GPFMvendorY.length; i++) {
+      var rounded = Math.round(GPFMvendorY[i]);
+      GPFMvendorY[i] = rounded;
     }
     for (var i = 0; i < precipSalesY.length; i++) {
       var rounded = Math.round(precipSalesY[i]);
@@ -470,6 +427,198 @@
         title: {
           display: true,
           text: 'Sales Per Vendor Category',
+          fontColor: 'rgba(0,0,0,0.6)',
+          fontFamily: 'Droid Serif'
+        },
+        fill: false,
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            ticks: {
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif',
+              autoSkip: false,
+              maxRotation: 0,
+              minRotation: 0
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            },
+            display: true,
+          }]
+        }
+      }
+    });
+
+    //Create PCFM Sales per Vendor Category Graph
+    var ctx = document.getElementById('PCFMvendor');
+    var PCFMvendor = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: salesVendorX,
+        datasets: [{
+          fill: false,
+          data: PCFMvendorY,
+          borderColor: '#2d8464',
+          backgroundColor: '#2d8464',
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'PCFM Sales Per Vendor Category',
+          fontColor: 'rgba(0,0,0,0.6)',
+          fontFamily: 'Droid Serif'
+        },
+        fill: false,
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            ticks: {
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif',
+              autoSkip: false,
+              maxRotation: 0,
+              minRotation: 0
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            },
+            display: true,
+          }]
+        }
+      }
+    });
+
+    //Create EAV Sales per Vendor Category Graph
+    var ctx = document.getElementById('EAVvendor');
+    var EAVvendor = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: salesVendorX,
+        datasets: [{
+          fill: false,
+          data: EAVvendorY,
+          borderColor: '#2d8464',
+          backgroundColor: '#2d8464',
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'EAV Sales Per Vendor Category',
+          fontColor: 'rgba(0,0,0,0.6)',
+          fontFamily: 'Droid Serif'
+        },
+        fill: false,
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            ticks: {
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif',
+              autoSkip: false,
+              maxRotation: 0,
+              minRotation: 0
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            },
+            display: true,
+          }]
+        }
+      }
+    });
+
+    //Create DFM Sales per Vendor Category Graph
+    var ctx = document.getElementById('DFMvendor');
+    var PCFMvendor = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: salesVendorX,
+        datasets: [{
+          fill: false,
+          data: DFMvendorY,
+          borderColor: '#2d8464',
+          backgroundColor: '#2d8464',
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'DFM Sales Per Vendor Category',
+          fontColor: 'rgba(0,0,0,0.6)',
+          fontFamily: 'Droid Serif'
+        },
+        fill: false,
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            ticks: {
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif',
+              autoSkip: false,
+              maxRotation: 0,
+              minRotation: 0
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            },
+            display: true,
+          }]
+        }
+      }
+    });
+
+    //Create GPFM Sales per Vendor Category Graph
+    var ctx = document.getElementById('GPFMvendor');
+    var PCFMvendor = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: salesVendorX,
+        datasets: [{
+          fill: false,
+          data: GPFMvendorY,
+          borderColor: '#2d8464',
+          backgroundColor: '#2d8464',
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'GPFM Sales Per Vendor Category',
           fontColor: 'rgba(0,0,0,0.6)',
           fontFamily: 'Droid Serif'
         },
@@ -1329,4 +1478,130 @@
       }
     });
   });
+
+  //Add collapsible filtering
+  var row = document.getElementsByClassName('filter-row');
+  for (var i = 0; i < row.length; i++) {
+    row[i].addEventListener('click', function () {
+      this.classList.toggle('active');
+      var content = this.nextElementSibling;
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+      } else {
+        content.style.display = 'block';
+      }
+    });
+  }
+
+  //Add filtering actions
+  function clearAll() {
+    $('input[type="checkbox"]:checked').prop('checked', false);
+    updateDisplayedGraphs();
+  }
+  $('input[type="checkbox"]').on('change', function () {
+    updateDisplayedGraphs();
+  });
+  
+  function updateDisplayedGraphs() {
+    var checkedElements = [];
+    var allGraphs = document.getElementsByClassName('graph');
+    $("input[type='checkbox']:checked").each(function(){
+      checkedElements.push($(this).val());
+    });
+    if (checkedElements.every(elem => (document.getElementById('allSales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('allSales').style.display = 'block';
+    } else {
+      document.getElementById('allSales').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('salesMarket').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('salesMarket').style.display = 'block';
+    } else {
+      document.getElementById('salesMarket').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('salesVendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('salesVendor').style.display = 'block';
+    } else {
+      document.getElementById('salesVendor').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('PCFMsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('PCFMsales').style.display = 'block';
+    } else {
+      document.getElementById('PCFMsales').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('PCFMvendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('PCFMvendor').style.display = 'block';
+    } else {
+      document.getElementById('PCFMvendor').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('EAVvendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('EAVvendor').style.display = 'block';
+    } else {
+      document.getElementById('EAVvendor').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('DFMvendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('DFMvendor').style.display = 'block';
+    } else {
+      document.getElementById('DFMvendor').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('GPFMvendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('GPFMvendor').style.display = 'block';
+    } else {
+      document.getElementById('GPFMvendor').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('EAVsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('EAVsales').style.display = 'block';
+    } else {
+      document.getElementById('EAVsales').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('DFMsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('DFMsales').style.display = 'block';
+    } else {
+      document.getElementById('DFMsales').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('GPFMsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('GPFMsales').style.display = 'block';
+    } else {
+      document.getElementById('GPFMsales').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('precipSales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('precipSales').style.display = 'block';
+    } else {
+      document.getElementById('precipSales').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('allAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('allAttendance').style.display = 'block';
+    } else {
+      document.getElementById('allAttendance').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('attendanceMarket').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('attendanceMarket').style.display = 'block';
+    } else {
+      document.getElementById('attendanceMarket').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('PCFMattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('PCFMattendance').style.display = 'block';
+    } else {
+      document.getElementById('PCFMattendance').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('EAVattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('EAVattendance').style.display = 'block';
+    } else {
+      document.getElementById('EAVattendance').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('DFMattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('DFMattendance').style.display = 'block';
+    } else {
+      document.getElementById('DFMattendance').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('GPFMattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('GPFMattendance').style.display = 'block';
+    } else {
+      document.getElementById('GPFMattendance').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('precipAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('precipAttendance').style.display = 'block';
+    } else {
+      document.getElementById('precipAttendance').style.display = 'none';
+    }
+  }
 </script>

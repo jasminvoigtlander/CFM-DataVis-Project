@@ -1,0 +1,42 @@
+@font-face {
+    font-family: 'DroidSerif-Regular';
+    src: url('fonts/droid-serif/DroidSerif-Regular.ttf');
+}
+@font-face {
+    font-family: 'Oswald-Regular';
+    src: url('fonts/oswald/Oswald-Regular.ttf');
+}
+
+#question {
+  font-family: 'Oswald-Regular';
+  font-size: 20px;
+  font-weight: lighter;
+  color: #000000;
+  margin-bottom: 15px;
+}
+
+
+#answer {
+  width: 75%;
+  font-family: 'Oswald-Regular';
+  font-weight: lighter;
+  font-size: 15px;
+  color: #5f450a;
+  padding-left: 20px;
+  padding-right: 20px;
+
+}
+
+.module {
+  display: block;
+  height: 25px;
+  background-position: center;
+  background-size: 25px;
+  background-image: url(images/border3.png);
+  background-repeat: no-repeat;
+}
+
+.sup {
+  padding-left: 100px;
+  padding-right: 100px;
+}

@@ -43,19 +43,18 @@
       <div class='outline'>
         <div class='row'>
           <div class='upload-form'>
-              <form>
-                <div class="toggle">
-                  <br>What type of data are you updating?</br>
-                  <div id= "saleRadio">
-                    <input id="radio-one" class="form-radio r1" type="radio" name="graphs" value="SalesRadio" onchange="salesInputs()"> Sales<br>
-                  </div>
-                  <div id = attendanceRadio>
-                    <input id="radio-one" class="form-radio r2" type="radio" name="graphs" value="AttendanceRadio" onchange="attendanceInputs()"> Attendance<br>
-                  </div>
-                  <br>
-                </div>
-
-                <select name='market' class='form-item' required>
+            <div class="toggle">
+              <br>What type of data are you updating?</br>
+              <div id= "saleRadio">
+                <input id="r1" class="form-radio" type="radio" name="graphs" value="SalesRadio" onchange="salesInputs()"> Sales<br>
+              </div>
+              <div id = attendanceRadio>
+                <input id="r2" class="form-radio" type="radio" name="graphs" value="AttendanceRadio" onchange="attendanceInputs()"> Attendance<br>
+              </div>
+              <br>
+            </div>
+              <form id="data-form" hidden>
+                <select id='markets' name='market' class='form-item' required>
                   <option value='' disable selected>Market</option>
                   <option value='EAV'>East Atlanta Village</option>
                   <option value='DFM-W'>Decatur (Wednesday)</option>
@@ -79,10 +78,10 @@
                 <div id="attendanceData">
                   <input name='sales' id='attendance' class='form-item' placeholder='Attendance' required><br>
                 </div>
-                <input name='date' type ='date' class='form-item' required><br>
+                <input id='date' name='date' type ='date' class='form-item' required><br>
                 <div class='button-container'>
-                  <button class='secondary-action' disabled>Cancel</button>
-                  <button class='primary-action' onclick="saveTo()">Upload Data</button>
+                  <button class='secondary-action'>Cancel</button>
+                  <button type="button" class='primary-action' onclick="saveTo()">Upload Data</button>
                 </div>
               </form>
           </div>
@@ -93,6 +92,8 @@
 </div>
 <script>
   function salesInputs() {
+      $("#data-form").show();
+
       var y = document.getElementById('attendanceData');
       y.style.display = "none";
 
@@ -112,6 +113,7 @@
   }
 
   function attendanceInputs() {
+    $("#data-form").show();
     var x = document.getElementById('vendorCategory');
     var y = document.getElementById('attendanceData');
     var z = document.getElementById('saleData');
@@ -129,7 +131,107 @@
     y.style.display = "block";
     b.required = true;
 
+
   }
+
+  function saveTo() {
+    var sale = document.getElementById('r1');
+    var att = document.getElementById('r2');
+
+    if (sale.checked) {
+      console.log("SALE UPLOAD");
+
+      var market = document.getElementById('markets');
+      var sm = market.options[market.selectedIndex].value;
+
+      var vendor = document.getElementById('vc');
+      var sv = vendor.options[vendor.selectedIndex].value;
+      var dataNum = document.getElementById('sales').value;
+      var date = document.getElementById('date').value;
+      date = date.toString();
+      date = reformatDate(date);
+      dataNum = parseInt(dataNum);
+
+      // console.log(sm);
+      // console.log(sv);
+      // console.log(dataNum);
+      // console.log(date);
+
+      // addSaleData(sm, sv, dataNum, date);
+
+    } else if (att.checked) {
+      console.log("ATTENDANCE UPLOAD");
+      var market = document.getElementById('markets');
+      var sm = market.options[market.selectedIndex].value;
+      var dataNum = document.getElementById('attendance').value;
+      var date = document.getElementById('date').value;
+      date = date.toString();
+      date = reformatDate(date);
+      dataNum = parseInt(dataNum);
+
+      // console.log(sm);
+      // console.log(dataNum);
+      // console.log(date.toString());
+
+       // addAttendanceData(sm, dataNum, date);
+    }
+
+  }
+
+  // function reformatDate(dateString) {
+  //   return dateString.substring(5, 7) + "/" + dateString.substr(8, 2) + "/" + dateString.substring(0, 4);
+  // }
+  //
+  //
+  // function addSaleData(m, v, s, d) {
+  //   $.getJSON("sales.json", function(json) {
+  //
+  //     var newSale = {
+  //       timestamp: d,
+  //       market: m,
+  //       vendorCategory: v,
+  //       sales: s,
+  //       date: d,
+  //       month: parseInt(d.substr(0,2)),
+  //       day:  parseInt(d.substr(3,2)),
+  //       year:  parseInt(d.substr(6,4)),
+  //       high:"",
+  //       low:"",
+  //       precip:""
+  //     };
+  //
+  //     json.push(newSale);
+  //     console.log(json[json.length-1]);
+  //     // console.log(JSON.stringify(json));
+  //     postSale(JSON.stringify(json, null, '\t'));
+  //
+  //     // console.log(json[0]); // this will show the info it in firebug console
+  //   });
+  // }
+  //
+  // function postSale(sale) {
+  //   // $.ajax({
+  //   //   type: 'send',
+  //   //   url: 'sales.json',
+  //   //   data: sale,
+  //   //   success: function() {
+  //   //     console.log('djfhkajfhdsjhf');
+  //   //   }
+  //   // });
+  // }
+  //
+  // function success() {
+  //   console.log("yeeet");
+  // }
+  //
+  // function addAttendanceData(m, a, d) {
+  //   $.getJSON("attendance.json", function(json) {
+  //     // console.log(json[0]); // this will show the info it in firebug console
+  //   });
+  //
+  // }
+
+
   // Disable symbols and letters from Sales and Attendance input
   document.getElementById('sales').onkeypress = function(e) {
       var chr = String.fromCharCode(e.which);
@@ -141,14 +243,6 @@
       if ('1234567890'.indexOf(chr) < 0)
           return false;
   };
-
-  function saveTo() {
-    var sale = document.getElementsByClassName('r1');
-    var atttendance = document.getElementsByClassName('r2');
-
-    console.log("fifjekljslkjflsdj");
-
-  }
 
 
 

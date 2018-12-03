@@ -130,9 +130,3 @@
 .expanded.markets #checkbox.next-line {
     line-height: 35px;
 }
-.expanded.categories #checkbox.next-line {
-    padding-top: 6px;
-}
-#checkbox .align-text {
-    padding-left: 18px;
-}

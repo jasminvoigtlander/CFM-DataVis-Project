@@ -108,15 +108,19 @@
   //Add filtering actions
   function clearAll() {
     $('input[type="checkbox"]:checked').prop('checked',false);
+    updateDisplayedGraphs();
   }
 
   $('input[type="checkbox"]').on('change', function () {
+    updateDisplayedGraphs();
+  });
+  
+  function updateDisplayedGraphs() {
     var checkedElements = [];
     var allGraphs = document.getElementsByClassName('graph');
     $("input[type='checkbox']:checked").each(function(){
       checkedElements.push($(this).val());
     });
-
     if (checkedElements.every(elem => (document.getElementById('allSales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('allSales').style.display = 'block';
     } else {
@@ -192,7 +196,7 @@
     } else {
       document.getElementById('precipAttendance').style.display = 'none';
     }
-  });
+  }
 
   //Parse Sales JSON
   $.getJSON('sales.json', function (data) {

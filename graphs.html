@@ -117,6 +117,10 @@
                   <div class='add-icon' onclick='addToDash(event)'></div>
                   <canvas id="precipSales" data-category='sales' width='300' height="150"></canvas>
               </div>
+              <div id='temp-sales' class='graph-div'>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="tempSales" data-category='sales' width='300' height="150"></canvas>
+              </div>
               <div id='all-attendance' class='graph-div'>
                   <div class='add-icon' onclick='addToDash(event)'></div>
                   <canvas id="allAttendance" data-category='attendance' width='300' height="150"></canvas> 
@@ -144,6 +148,10 @@
               <div id='precip-attendance' class='graph-div'>
                   <div class='add-icon' onclick='addToDash(event)'></div>
                   <canvas id="precipAttendance" data-category='attendance' width='300' height="150"></canvas>
+              </div>
+              <div id='temp-attendance' class='graph-div'>
+                  <div class='add-icon' onclick='addToDash(event)'></div>
+                  <canvas id="tempAttendance" data-category='attendance' width='300' height="150"></canvas>
               </div>
           </div>
         </div>
@@ -225,6 +233,8 @@
     var GPFMvendorY = [0, 0, 0];
     var precipSalesX = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
     var precipSalesY = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    var tempSalesX = [35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
+    var tempSalesY = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     var date = '5/8/18';
     var sales = [];
     var PCFMdate = '5/8/18';
@@ -368,6 +378,68 @@
       } else if ((Math.round(data[i].precip * 10) / 10) == 1) {
         precipSalesY[10] += data[i].sales;
       }
+      //Temperature
+      if (data[i].temp !== null) {
+        if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 35) {
+          tempSalesY[0] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 40) {
+          tempSalesY[1] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 45) {
+          tempSalesY[2] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 50) {
+          tempSalesY[3] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 55) {
+          tempSalesY[4] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 60) {
+          tempSalesY[5] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 65) {
+          tempSalesY[6] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 70) {
+          tempSalesY[7] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 75) {
+          tempSalesY[8] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 80) {
+          tempSalesY[9] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 85) {
+          tempSalesY[10] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 90) {
+          tempSalesY[10] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 95) {
+          tempSalesY[10] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].temp)) / 5) * 5 == 100) {
+          tempSalesY[10] += data[i].sales;
+        }
+      } else {
+        if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 35) {
+          tempSalesY[0] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 40) {
+          tempSalesY[1] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 45) {
+          tempSalesY[2] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 50) {
+          tempSalesY[3] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 55) {
+          tempSalesY[4] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 60) {
+          tempSalesY[5] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 65) {
+          tempSalesY[6] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 70) {
+          tempSalesY[7] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 75) {
+          tempSalesY[8] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 80) {
+          tempSalesY[9] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 85) {
+          tempSalesY[10] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 90) {
+          tempSalesY[10] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 95) {
+          tempSalesY[10] += data[i].sales;
+        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 100) {
+          tempSalesY[10] += data[i].sales;
+        }
+      }
     }
     allSalesX.push(new Date(date));
     allSalesY.push(sales.reduce(function add(a, b) { return a + b }), 0);
@@ -407,6 +479,10 @@
     for (var i = 0; i < precipSalesY.length; i++) {
       var rounded = Math.round(precipSalesY[i]);
       precipSalesY[i] = rounded;
+    }
+    for (var i = 0; i < tempSalesY.length; i++) {
+      var rounded = Math.round(tempSalesY[i]);
+      tempSalesY[i] = rounded;
     }
 
     //Create All Sales Graph
@@ -1092,6 +1168,54 @@
         }
       }
     });
+
+    //Create Temperature vs. Sales Graph
+    var ctx = document.getElementById('tempSales');
+    var tempSales = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: tempSalesX,
+        datasets: [{
+          fill: false,
+          data: tempSalesY,
+          borderColor: '#2d8464',
+          backgroundColor: '#2d8464',
+        }]
+      },
+      options: {
+        animation: {
+            duration: 0
+        },
+        title: {
+          display: true,
+          text: 'Temperature vs. Sales',
+          fontColor: 'rgba(0,0,0,0.6)',
+          fontFamily: 'Droid Serif'
+        },
+        fill: false,
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            ticks: {
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            },
+            display: true,
+          }]
+        }
+      }
+    });
   });
 
   //Parse Attendance JSON
@@ -1111,6 +1235,8 @@
     var attendanceMarketY = [0, 0, 0, 0, 0];
     var precipAttendanceX = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
     var precipAttendanceY = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    var tempAttendanceX = [35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
+    var tempAttendanceY = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     var date = '5/15/11';
     var attendance = [];
     var PCFMdate = '5/15/11';
@@ -1206,6 +1332,36 @@
       } else if ((Math.round(data[i].precip * 10) / 10) == 1) {
         precipAttendanceY[10] += data[i].attendance;
       }
+      //Temperature
+      if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 35) {
+        tempAttendanceY[0] += data[i].attendance;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 40) {
+        tempAttendanceY[1] += data[i].attendance;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 45) {
+        tempAttendanceY[2] += data[i].attendance;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 50) {
+        tempAttendanceY[3] += data[i].attendance;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 55) {
+        tempAttendanceY[4] += data[i].attendance;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 60) {
+        tempAttendanceY[5] += data[i].attendance;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 65) {
+        tempAttendanceY[6] += data[i].attendance;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 70) {
+        tempAttendanceY[7] += data[i].attendance;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 75) {
+        tempAttendanceY[8] += data[i].attendance;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 80) {
+        tempAttendanceY[9] += data[i].attendance;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 85) {
+        tempAttendanceY[10] += data[i].attendance;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 90) {
+        tempAttendanceY[10] += data[i].attendance;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 95) {
+        tempAttendanceY[10] += data[i].attendance;
+      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 100) {
+        tempAttendanceY[10] += data[i].attendance;
+      }
     }
     allAttendanceX.push(date);
     allAttendanceY.push(attendance.reduce(function add(a, b) { return a + b }), 0);
@@ -1217,6 +1373,10 @@
     for (var i = 0; i < precipAttendanceY.length; i++) {
       var rounded = Math.round(precipAttendanceY[i]);
       precipAttendanceY[i] = rounded;
+    }
+    for (var i = 0; i < tempAttendanceY.length; i++) {
+      var rounded = Math.round(tempAttendanceY[i]);
+      tempAttendanceY[i] = rounded;
     }
 
     //Create All Attendance Graph
@@ -1644,6 +1804,54 @@
         }
       }
     });
+
+    //Create Temperature vs. Attendance Graph
+    var ctx = document.getElementById('tempAttendance');
+    var tempAttendance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: tempAttendanceX,
+        datasets: [{
+          fill: false,
+          data: tempAttendanceY,
+          borderColor: '#2d8464',
+          backgroundColor: '#2d8464',
+        }]
+      },
+      options: {
+        animation: {
+            duration: 0
+        },
+        title: {
+          display: true,
+          text: 'Temperature vs. Attendance',
+          fontColor: 'rgba(0,0,0,0.6)',
+          fontFamily: 'Droid Serif'
+        },
+        fill: false,
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            ticks: {
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: 'rgba(0,0,0,0.6)',
+              fontFamily: 'Droid Serif'
+            },
+            display: true,
+          }]
+        }
+      }
+    });
   });
 
   //Add collapsible filtering
@@ -1734,6 +1942,11 @@
       document.getElementById('precip-sales').style.display = 'block';
     } else {
       document.getElementById('precip-sales').style.display = 'none';
+    }
+    if (checkedElements.every(elem => (document.getElementById('tempSales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
+      document.getElementById('temp-sales').style.display = 'block';
+    } else {
+      document.getElementById('temp-sales').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('allAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('all-attendance').style.display = 'block';

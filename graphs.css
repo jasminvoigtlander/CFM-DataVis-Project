@@ -87,6 +87,7 @@
     border-color: initial;
     border-image: initial;
     outline: none;
+    background: none;
 }
 .filter-row {
     border-top: 1px solid rgba(95, 69, 10, 0.3);
@@ -117,9 +118,6 @@
 .expanded.categories {
     width: 205px;
 }
-.expanded input[type='checkbox'] {
-    border: 1px solid #5f450a;
-}
 .expanded #checkbox {
     font-size: 75%;
     font-family: DroidSerif-Regular;
@@ -129,4 +127,11 @@
 }
 .expanded.markets #checkbox.next-line {
     line-height: 35px;
+}
+.graph-div img{
+    height: 20px;
+    width: 20px;
+    float: right;
+    margin-right: 30px;
+    transform: translateY(25px);
 }

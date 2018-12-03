@@ -68,25 +68,82 @@
             </div>
           </div>
           <div class='graphs'>
-              <canvas id="allSales" data-category='sales' width='300' height="150"></canvas>
-              <canvas id="salesMarket" data-category='sales' width='300' height="150"></canvas>
-              <canvas id="salesVendor" data-category='sales' width='300' height="150"></canvas>
-              <canvas id="PCFMsales" data-category='sales pcfm' width='300' height="150"></canvas>
-              <canvas id="PCFMvendor" data-category='sales pcfm' width='300' height="150"></canvas>
-              <canvas id="EAVvendor" data-category='sales eav' width='300' height="150"></canvas>
-              <canvas id="DFMvendor" data-category='sales dfm' width='300' height="150"></canvas>
-              <canvas id="GPFMvendor" data-category='sales gpfm' width='300' height="150"></canvas>
-              <canvas id="EAVsales" data-category='sales eav' width='300' height="150"></canvas>
-              <canvas id="DFMsales" data-category='sales dfm' width='300' height="150"></canvas>
-              <canvas id="GPFMsales" data-category='sales gpfm' width='300' height="150"></canvas>
-              <canvas id="precipSales" data-category='sales' width='300' height="150"></canvas>
-              <canvas id="allAttendance" data-category='attendance' width='300' height="150"></canvas> 
-              <canvas id="attendanceMarket" data-category='attendance' width='300' height="150"></canvas>
-              <canvas id="PCFMattendance" data-category='attendance pcfm' width='300' height="150"></canvas>
-              <canvas id="EAVattendance" data-category='attendance eav' width='300' height="150"></canvas>
-              <canvas id="DFMattendance" data-category='attendance dfm' width='300' height="150"></canvas>
-              <canvas id="GPFMattendance" data-category='attendance gpfm' width='300' height="150"></canvas>
-              <canvas id="precipAttendance" data-category='attendance' width='300' height="150"></canvas>
+              <div id='all-sales' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="allSales" data-category='sales' width='300' height="150"></canvas>
+              </div>
+              <div id='sales-market' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="salesMarket" data-category='sales' width='300' height="150"></canvas>
+              </div>
+              <div id='sales-vendor' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="salesVendor" data-category='sales' width='300' height="150"></canvas>
+              </div>
+              <div id='pcfm-sales' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="PCFMsales" data-category='sales pcfm' width='300' height="150"></canvas>
+              </div>
+              <div id='pcfm-vendor' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="PCFMvendor" data-category='sales pcfm' width='300' height="150"></canvas>
+              </div>
+              <div id='eav-vendor' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="EAVvendor" data-category='sales eav' width='300' height="150"></canvas>
+              </div>
+              <div id='dfm-vendor' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="DFMvendor" data-category='sales dfm' width='300' height="150"></canvas>
+              </div>
+              <div id='gpfm-vendor' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="GPFMvendor" data-category='sales gpfm' width='300' height="150"></canvas>
+              </div>
+              <div id='eav-sales' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="EAVsales" data-category='sales eav' width='300' height="150"></canvas>
+              </div>
+              <div id='dfm-sales' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="DFMsales" data-category='sales dfm' width='300' height="150"></canvas>
+              </div>
+              <div id='gpfm-sales' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="GPFMsales" data-category='sales gpfm' width='300' height="150"></canvas>
+              </div>
+              <div id='precip-sales' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="precipSales" data-category='sales' width='300' height="150"></canvas>
+              </div>
+              <div id='all-attendance' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="allAttendance" data-category='attendance' width='300' height="150"></canvas> 
+              </div>
+              <div id='attendance-market' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="attendanceMarket" data-category='attendance' width='300' height="150"></canvas>
+              </div>
+              <div id='pcfm-attendance' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="PCFMattendance" data-category='attendance pcfm' width='300' height="150"></canvas>
+              </div>
+              <div id='eav-attendance' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="EAVattendance" data-category='attendance eav' width='300' height="150"></canvas>
+              </div>
+              <div id='dfm-attendance' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="DFMattendance" data-category='attendance dfm' width='300' height="150"></canvas>
+              </div>
+              <div id='gpfm-attendance' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="GPFMattendance" data-category='attendance gpfm' width='300' height="150"></canvas>
+              </div>
+              <div id='precip-attendance' class='graph-div'>
+                  <img src='images/add.png'>
+                  <canvas id="precipAttendance" data-category='attendance' width='300' height="150"></canvas>
+              </div>
           </div>
         </div>
       </div>
@@ -1509,99 +1566,99 @@
       checkedElements.push($(this).val());
     });
     if (checkedElements.every(elem => (document.getElementById('allSales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('allSales').style.display = 'block';
+      document.getElementById('all-sales').style.display = 'block';
     } else {
-      document.getElementById('allSales').style.display = 'none';
+      document.getElementById('all-sales').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('salesMarket').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('salesMarket').style.display = 'block';
+      document.getElementById('sales-market').style.display = 'block';
     } else {
-      document.getElementById('salesMarket').style.display = 'none';
+      document.getElementById('sales-market').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('salesVendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('salesVendor').style.display = 'block';
+      document.getElementById('sales-vendor').style.display = 'block';
     } else {
-      document.getElementById('salesVendor').style.display = 'none';
+      document.getElementById('sales-vendor').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('PCFMsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('PCFMsales').style.display = 'block';
+      document.getElementById('pcfm-sales').style.display = 'block';
     } else {
-      document.getElementById('PCFMsales').style.display = 'none';
+      document.getElementById('pcfm-sales').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('PCFMvendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('PCFMvendor').style.display = 'block';
+      document.getElementById('pcfm-vendor').style.display = 'block';
     } else {
-      document.getElementById('PCFMvendor').style.display = 'none';
+      document.getElementById('pcfm-vendor').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('EAVvendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('EAVvendor').style.display = 'block';
+      document.getElementById('eav-vendor').style.display = 'block';
     } else {
-      document.getElementById('EAVvendor').style.display = 'none';
+      document.getElementById('eav-vendor').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('DFMvendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('DFMvendor').style.display = 'block';
+      document.getElementById('dfm-vendor').style.display = 'block';
     } else {
-      document.getElementById('DFMvendor').style.display = 'none';
+      document.getElementById('dfm-vendor').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('GPFMvendor').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('GPFMvendor').style.display = 'block';
+      document.getElementById('gpfm-vendor').style.display = 'block';
     } else {
-      document.getElementById('GPFMvendor').style.display = 'none';
+      document.getElementById('gpfm-vendor').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('EAVsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('EAVsales').style.display = 'block';
+      document.getElementById('eav-sales').style.display = 'block';
     } else {
-      document.getElementById('EAVsales').style.display = 'none';
+      document.getElementById('eav-sales').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('DFMsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('DFMsales').style.display = 'block';
+      document.getElementById('dfm-sales').style.display = 'block';
     } else {
-      document.getElementById('DFMsales').style.display = 'none';
+      document.getElementById('dfm-sales').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('GPFMsales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('GPFMsales').style.display = 'block';
+      document.getElementById('gpfm-sales').style.display = 'block';
     } else {
-      document.getElementById('GPFMsales').style.display = 'none';
+      document.getElementById('gpfm-sales').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('precipSales').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('precipSales').style.display = 'block';
+      document.getElementById('precip-sales').style.display = 'block';
     } else {
-      document.getElementById('precipSales').style.display = 'none';
+      document.getElementById('precip-sales').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('allAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('allAttendance').style.display = 'block';
+      document.getElementById('all-attendance').style.display = 'block';
     } else {
-      document.getElementById('allAttendance').style.display = 'none';
+      document.getElementById('all-attendance').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('attendanceMarket').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('attendanceMarket').style.display = 'block';
+      document.getElementById('attendance-market').style.display = 'block';
     } else {
-      document.getElementById('attendanceMarket').style.display = 'none';
+      document.getElementById('attendance-market').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('PCFMattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('PCFMattendance').style.display = 'block';
+      document.getElementById('pcfm-attendance').style.display = 'block';
     } else {
-      document.getElementById('PCFMattendance').style.display = 'none';
+      document.getElementById('pcfm-attendance').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('EAVattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('EAVattendance').style.display = 'block';
+      document.getElementById('eav-attendance').style.display = 'block';
     } else {
-      document.getElementById('EAVattendance').style.display = 'none';
+      document.getElementById('eav-attendance').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('DFMattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('DFMattendance').style.display = 'block';
+      document.getElementById('dfm-attendance').style.display = 'block';
     } else {
-      document.getElementById('DFMattendance').style.display = 'none';
+      document.getElementById('dfm-attendance').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('GPFMattendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('GPFMattendance').style.display = 'block';
+      document.getElementById('gpfm-attendance').style.display = 'block';
     } else {
-      document.getElementById('GPFMattendance').style.display = 'none';
+      document.getElementById('gpfm-attendance').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('precipAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
-      document.getElementById('precipAttendance').style.display = 'block';
+      document.getElementById('precip-attendance').style.display = 'block';
     } else {
-      document.getElementById('precipAttendance').style.display = 'none';
+      document.getElementById('precip-attendance').style.display = 'none';
     }
   }
 </script>

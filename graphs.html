@@ -6,9 +6,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="plugins/hammerjs/hammer.min.js"></script>
 <script src="plugins/chartjs-plugin-zoom/chartjs-plugin-zoom.js"></script>
-<!-- <script type="text/javascript" src="sales.json"></script>
+<script type="text/javascript" src="sales.json"></script>
 <script type="text/javascript" src="attendance.json"></script>
-<script type="text/javascript" src="dashboard.json"></script> -->
+<script type="text/javascript" src="dashboard.json"></script>
 
 <div id='header'>
   <div class='content shadow radius-bottom'>
@@ -237,21 +237,33 @@
   </div>
 </div>
 <script>
+
+  /////////////////Dashboard Code/////////////////
+
   //Load correct page based off hash
   if (window.location.hash == '#dashboard') {
     displayDashboard();
   } else {
-    $.getJSON('https://raw.githubusercontent.com/jasminvoigtlander/CFM-DataVis-Project/master/dashboard.json', function (data) {
-    for(var i = 0; i < data.length; i++) {
-      document.getElementById(data[i].name).appendChild($('#' + data[i].name.replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
-    }
+    $.getJSON('dashboard.json', function (data) {
+      document.getElementById('footer-dash').style.display = 'none';
+      document.getElementById('footer-graphs').style.display = 'flex';
+      for (var i = 0; i < data.length; i++) {
+        document.getElementById(data[i].name).appendChild($('#' + data[i].name.replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
+      }
     });
-    document.getElementById('footer-dash').style.display = 'none';
-    document.getElementById('footer-graphs').style.display = 'flex';
   }
   function displayDashboard() {
     document.getElementById('footer-graphs').style.display = 'none';
     document.getElementById('footer-dash').style.display = 'flex';
+
+    //Parse Dashboard JSON
+    $.getJSON('dashboard.json', function (data) {
+      for(var i = 0; i < data.length; i++) {
+        document.getElementById(data[i].name + '1').appendChild($('#' + data[i].name.replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
+        document.getElementById(data[i].name + '1').style.display = 'block';
+      }
+    });
+    //Parse (temporary) dashboardGraphs array
     if (dashboardGraphs) {
       for (var i = 0; i < dashboardGraphs.length; i++) {
         document.getElementById(dashboardGraphs[i] + '1').appendChild($('#' + dashboardGraphs[i].replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
@@ -259,16 +271,6 @@
       }
     }
   }
-
-  /////////////////Dashboard Code/////////////////
-
-  //Parse Dashboard JSON
-  $.getJSON('https://raw.githubusercontent.com/jasminvoigtlander/CFM-DataVis-Project/master/dashboard.json', function (data) {
-    for(var i = 0; i < data.length; i++) {
-      document.getElementById(data[i].name + '1').appendChild($('#' + data[i].name.replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
-      document.getElementById(data[i].name + '1').style.display = 'block';
-    }
-  });
 
   /////////////////Graphs Code/////////////////
 
@@ -282,7 +284,7 @@
   }
 
   //Parse Sales JSON
-  $.getJSON('https://raw.githubusercontent.com/jasminvoigtlander/CFM-DataVis-Project/master/sales.json', function (data) {
+  $.getJSON('sales.json', function (data) {
     //Instantiate x and y arrays for charts
     var allSalesX = [];
     var allSalesY = [];
@@ -1258,7 +1260,7 @@
   });
 
   //Parse Attendance JSON
-  $.getJSON('https://raw.githubusercontent.com/jasminvoigtlander/CFM-DataVis-Project/master/attendance.json', function (data) {
+  $.getJSON('attendance.json', function (data) {
     //Instantiate x and y arrays for charts
     var allAttendanceX = [];
     var allAttendanceY = [];

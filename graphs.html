@@ -159,8 +159,8 @@
     </div>
   </div>
 </div>
-
 <div id="snackbar">Added to Dashboard</div>
+
 <div id='footer-dash'>
   <div class='content shadow radius-top'>
     <div class='padded'>
@@ -254,20 +254,20 @@
   }
   function displayDashboard() {
     document.getElementById('footer-graphs').style.display = 'none';
-    document.getElementById('footer-dash').style.display = 'flex';
+    document.getElementById('footer-dash').style.display = 'inline-block';
 
     //Parse Dashboard JSON
     $.getJSON('dashboard.json', function (data) {
       for(var i = 0; i < data.length; i++) {
         document.getElementById(data[i].name + '1').appendChild($('#' + data[i].name.replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
-        document.getElementById(data[i].name + '1').style.display = 'block';
+        document.getElementById(data[i].name + '1').style.display = 'inline-block';
       }
     });
     //Parse (temporary) dashboardGraphs array
     if (dashboardGraphs) {
       for (var i = 0; i < dashboardGraphs.length; i++) {
         document.getElementById(dashboardGraphs[i] + '1').appendChild($('#' + dashboardGraphs[i].replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
-        document.getElementById(dashboardGraphs[i] + '1').style.display = 'block';
+        document.getElementById(dashboardGraphs[i] + '1').style.display = 'inline-block';
       }
     }
   }

@@ -44,6 +44,7 @@
 .row {
     width: 100%;
     margin: 0 auto;
+    min-height: 483px;
 }
 .graphs {
     padding: 0px 12px;
@@ -159,6 +160,8 @@
 }
 .dash-div {
     display: none;
+    width: 511px;
+    height: 280px;
 }
 #snackbar {
     visibility: hidden;

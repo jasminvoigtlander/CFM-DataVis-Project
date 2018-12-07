@@ -151,19 +151,35 @@
     cursor: pointer;
 }
 .dash-div .drag-icon {
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
     float: right;
     margin-right: 30px;
     transform: translateY(25px);
     background: url('images/drag.png') no-repeat;
+}
+.dash-div .drag-icon {
+    cursor: pointer;
+}
+.dash-div .remove-icon {
+    height: 17px;
+    width: 17px;
+    float: right;
+    margin-right: 53px;
+    transform: translateY(25px);
+    margin-bottom: -17px;
+    background: url('images/remove.png') no-repeat;
+}
+.dash-div .remove-icon:hover {
+    background: url('images/remove-hover.png') no-repeat;
+    cursor: pointer;
 }
 .dash-div {
     display: none;
     width: 511px;
     height: 280px;
 }
-#snackbar {
+#added-snackbar {
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
@@ -179,7 +195,29 @@
     font-size: 15px;
     font-family: DroidSerif-Regular;
 }
-#snackbar.show {
+#added-snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    -moz-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+#removed-snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: rgba(51,51,51,0.8);
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 14px;
+    position: fixed;
+    z-index: 99;
+    left: 50%;
+    bottom: 30px;
+    font-size: 15px;
+    font-family: DroidSerif-Regular;
+}
+#removed-snackbar.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     -moz-animation: fadein 0.5s, fadeout 0.5s 2.5s;

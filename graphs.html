@@ -159,7 +159,8 @@
     </div>
   </div>
 </div>
-<div id="snackbar">Added to Dashboard</div>
+<div id="added-snackbar">Added to Dashboard</div>
+<div id="removed-snackbar">Removed From Dashboard</div>
 
 <div id='footer-dash'>
   <div class='content shadow radius-top'>
@@ -168,66 +169,87 @@
         <div class='row'>
           <div class='dashboard'>
               <div id='all-sales1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='sales-market1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='sales-vendor1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='pcfm-sales1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='eav-sales1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='dfm-sales1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='gpfm-sales1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='pcfm-vendor1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='eav-vendor1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='dfm-vendor1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='gpfm-vendor1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='precip-sales1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='temp-sales1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='all-attendance1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='attendance-market1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='pcfm-attendance1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='eav-attendance1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='dfm-attendance1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='gpfm-attendance1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='precip-attendance1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
               <div id='temp-attendance1' class='dash-div'>
+                  <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
               </div>
           </div>
@@ -278,8 +300,17 @@
   //Change this to push to dashboard.json
   function addToDash(event) {
     dashboardGraphs.push(event.target.parentElement.id);
-    var x = document.getElementById("snackbar");
-    x.className = "show";
+    var x = document.getElementById('added-snackbar');
+    x.className = 'show';
+    setTimeout(function() { x.className = x.className.replace('show', ''); }, 3000);
+  }
+  //Change this to remove from dashboard.json
+  function removeFromDash(event) {
+    var index = dashboardGraphs.indexOf(event.target.parentElement.id.replace(/[0-9]/g, ''));
+    if (index !== -1) dashboardGraphs.splice(index, 1);
+    document.getElementById(event.target.parentElement.id).style.display = 'none';
+    var x = document.getElementById("removed-snackbar");
+    x.className = 'show';
     setTimeout(function() { x.className = x.className.replace('show', ''); }, 3000);
   }
 

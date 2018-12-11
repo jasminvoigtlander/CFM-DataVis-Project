@@ -8,7 +8,6 @@
 <script src="plugins/chartjs-plugin-zoom/chartjs-plugin-zoom.js"></script>
 <script type="text/javascript" src="sales.json"></script>
 <script type="text/javascript" src="attendance.json"></script>
-<script type="text/javascript" src="dashboard.json"></script>
 
 <div id='header'>
   <div class='content shadow radius-bottom'>
@@ -271,13 +270,14 @@
   if (window.location.hash == '#dashboard') {
     displayDashboard();
   } else {
-    $.getJSON('dashboard.json', function (data) {
       document.getElementById('footer-dash').style.display = 'none';
       document.getElementById('footer-graphs').style.display = 'flex';
-      for (var i = 0; i < data.length; i++) {
-        document.getElementById(data[i].name).appendChild($('#' + data[i].name.replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
+      if (localStorage.getItem('dashboardGraphs') !== null && localStorage.getItem('dashboardGraphs') !== '' && localStorage.getItem('dashboardGraphs') !== '[]') {
+        var graphs = JSON.parse(localStorage.getItem('dashboardGraphs'));
+        for (var i = 0; i < graphs.length; i++) {
+          document.getElementById(graphs[i].name).appendChild($('#' + graphs[i].name.replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
+        }
       }
-    });
   }
   function displayDashboard() {
     document.getElementById('footer-graphs').style.display = 'none';

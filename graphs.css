@@ -42,6 +42,7 @@
     border-radius: 6px 6px 0px 0px;
 }
 .row {
+    min-width: 1003px;
     width: 100%;
     margin: 0 auto;
     min-height: 483px;
@@ -149,6 +150,39 @@
 .graph-div .add-icon:hover {
     background: url('images/add-hover.png') no-repeat;
     cursor: pointer;
+}
+.empty {
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    width: 50%;
+    font-weight: lighter;
+    line-height: 1.9;
+    font-size: 0.9em;
+    color: rgba(0, 0, 0, 0.6);
+    padding: 50px 0px 0px 270px;
+    display: none;
+}
+.empty button {
+    border-radius: 5px;
+    font-family: 'DroidSerif-Regular';
+    height: 29px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, .3), 0 2px 1px 0 rgba(0, 0, 0, .3);
+    border-style: solid;
+    font-size: 0.8em;
+}
+.empty .primary-action {
+    background-color: #2d8464;
+    margin: 0px 0px 20px 180px;
+    width: 139px;
+    border-color: #2d8464;
+    color: #fff;
+}
+.empty .primary-action:hover {
+    background-color: #3d8d70;
+    border-color: #3d8d70;
+}
+.empty .primary-action:active {
+    background-color: #4c967b;
+    border-color: #4c967b;
 }
 .dash-div .drag-icon {
     height: 16px;

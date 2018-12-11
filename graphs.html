@@ -168,6 +168,11 @@
       <div class='outline'>
         <div class='row'>
           <div class='dashboard'>
+              <div class='empty'>
+                <button type='button' class='primary-action' onclick='location.href="graphs.html"'>Add Graphs</button>
+                </br>It looks like your dashboard is empty. Get started by navigating to the "Graphs" page and 
+                adding your first graph. Once you do, it will be displayed on this page.
+              </div>
               <div id='all-sales1' class='dash-div'>
                   <div class='remove-icon' onclick='removeFromDash(event)'></div>
                   <div class='drag-icon'></div>
@@ -279,36 +284,46 @@
     document.getElementById('footer-dash').style.display = 'inline-block';
 
     //Parse Dashboard JSON
-    $.getJSON('dashboard.json', function (data) {
-      for(var i = 0; i < data.length; i++) {
-        document.getElementById(data[i].name + '1').appendChild($('#' + data[i].name.replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
-        document.getElementById(data[i].name + '1').style.display = 'inline-block';
+    if (localStorage.getItem('dashboardGraphs') !== null && localStorage.getItem('dashboardGraphs') !== '' && localStorage.getItem('dashboardGraphs') !== '[]') {
+      var graphs = JSON.parse(localStorage.getItem('dashboardGraphs'));
+      for (var i = 0; i < graphs.length; i++) {
+        document.getElementById(graphs[i].name + '1').appendChild($('#' + graphs[i].name.replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
+        document.getElementById(graphs[i].name + '1').style.display = 'inline-block';
       }
-    });
-    //Parse (temporary) dashboardGraphs array
-    if (dashboardGraphs) {
-      for (var i = 0; i < dashboardGraphs.length; i++) {
-        document.getElementById(dashboardGraphs[i] + '1').appendChild($('#' + dashboardGraphs[i].replace(/(-.)/g,function(x){return x[1].toUpperCase()}))[0]);
-        document.getElementById(dashboardGraphs[i] + '1').style.display = 'inline-block';
-      }
+    } else {
+      document.getElementsByClassName('empty')[0].style.display = 'block';
     }
   }
 
   /////////////////Graphs Code/////////////////
 
-  var dashboardGraphs = [];
-  //Change this to push to dashboard.json
   function addToDash(event) {
-    dashboardGraphs.push(event.target.parentElement.id);
+    var newGraph = {
+      name: event.target.parentElement.id
+    };
+    if (localStorage.getItem('dashboardGraphs') == null) {
+      localStorage.setItem('dashboardGraphs', JSON.stringify([newGraph], null, '\t'));
+    } else {
+      var temp = JSON.parse(localStorage.getItem('dashboardGraphs'));
+      temp.push(newGraph);
+      localStorage.setItem('dashboardGraphs', JSON.stringify(temp, null, '\t'));
+    }
+    console.log(localStorage.getItem('dashboardGraphs'));
+
     var x = document.getElementById('added-snackbar');
     x.className = 'show';
     setTimeout(function() { x.className = x.className.replace('show', ''); }, 3000);
   }
-  //Change this to remove from dashboard.json
+
   function removeFromDash(event) {
-    var index = dashboardGraphs.indexOf(event.target.parentElement.id.replace(/[0-9]/g, ''));
-    if (index !== -1) dashboardGraphs.splice(index, 1);
+    var temp = JSON.parse(localStorage.getItem('dashboardGraphs')).filter(function(obj) { return obj.name !== event.target.parentElement.id.replace(/[0-9]/g, '')}); 
+    localStorage.setItem('dashboardGraphs', JSON.stringify(temp));
     document.getElementById(event.target.parentElement.id).style.display = 'none';
+    
+    if (localStorage.getItem('dashboardGraphs') == null || localStorage.getItem('dashboardGraphs') == '' || localStorage.getItem('dashboardGraphs') == '[]') {
+      document.getElementsByClassName('empty')[0].style.display = 'block';
+    }
+
     var x = document.getElementById("removed-snackbar");
     x.className = 'show';
     setTimeout(function() { x.className = x.className.replace('show', ''); }, 3000);
@@ -350,167 +365,171 @@
     var GPFMdate = '5/8/18';
     var GPFMsales = [];
 
-    for (var i = 0; i < data.length; i++) {
-      if (data[i].date !== date) {
+    if (localStorage.getItem('salesData') == null) {
+      localStorage.setItem('salesData', JSON.stringify(data, null, '\t'));
+    }
+    var salesData = JSON.parse(localStorage.getItem('salesData'));
+    for (var i = 0; i < salesData.length; i++) {
+      if (salesData[i].date !== date) {
         //All Sales
         allSalesX.push(new Date(date));
         var rounded = Math.round(sales.reduce(function add(a, b) { return a + b }, 0));
         allSalesY.push(rounded);
         sales = [];
-        date = data[i].date;
+        date = salesData[i].date;
       }
-      sales.push(data[i].sales);
+      sales.push(salesData[i].sales);
       //Market-specific Sales
-      if (data[i].market == 'PCFM') {
-        if (data[i].date !== PCFMdate) {
+      if (salesData[i].market == 'PCFM') {
+        if (salesData[i].date !== PCFMdate) {
           PCFMsalesX.push(new Date(PCFMdate));
           var rounded = Math.round(PCFMsales.reduce(function add(a, b) { return a + b }, 0));
           PCFMsalesY.push(rounded);
           PCFMsales = [];
-          PCFMdate = data[i].date;
+          PCFMdate = salesData[i].date;
         }
-        PCFMsales.push(data[i].sales);
-      } else if (data[i].market == 'EAV') {
-        if (data[i].date !== EAVdate) {
+        PCFMsales.push(salesData[i].sales);
+      } else if (salesData[i].market == 'EAV') {
+        if (salesData[i].date !== EAVdate) {
           EAVsalesX.push(new Date(EAVdate));
           var rounded = Math.round(EAVsales.reduce(function add(a, b) { return a + b }, 0));
           EAVsalesY.push(rounded);
           EAVsales = [];
-          EAVdate = data[i].date;
+          EAVdate = salesData[i].date;
         }
-        EAVsales.push(data[i].sales);
-      } else if (data[i].market == 'DFM-W' || data[i].market == 'DFM-S') {
-        if (data[i].date !== DFMdate) {
+        EAVsales.push(salesData[i].sales);
+      } else if (salesData[i].market == 'DFM-W' || salesData[i].market == 'DFM-S') {
+        if (salesData[i].date !== DFMdate) {
           DFMsalesX.push(new Date(DFMdate));
           var rounded = Math.round(DFMsales.reduce(function add(a, b) { return a + b }, 0));
           DFMsalesY.push(rounded);
           DFMsales = [];
-          DFMdate = data[i].date;
+          DFMdate = salesData[i].date;
         }
-        DFMsales.push(data[i].sales);
-      } else if (data[i].market == 'GPFM') {
-        if (data[i].date !== GPFMdate) {
+        DFMsales.push(salesData[i].sales);
+      } else if (salesData[i].market == 'GPFM') {
+        if (salesData[i].date !== GPFMdate) {
           GPFMsalesX.push(new Date(GPFMdate));
           var rounded = Math.round(GPFMsales.reduce(function add(a, b) { return a + b }, 0));
           GPFMsalesY.push(rounded);
           GPFMsales = [];
-          GPFMdate = data[i].date;
+          GPFMdate = salesData[i].date;
         }
-        GPFMsales.push(data[i].sales);
+        GPFMsales.push(salesData[i].sales);
       }
       //Sales per Market
-      if (data[i].market == 'PCFM') {
-        salesMarketY[0] += data[i].sales;
-      } else if (data[i].market == 'EAV') {
-        salesMarketY[1] += data[i].sales;
-      } else if (data[i].market == 'DFM-W') {
-        salesMarketY[2] += data[i].sales;
-      } else if (data[i].market == 'DFM-S') {
-        salesMarketY[3] += data[i].sales;
-      } else if (data[i].market == 'GPFM') {
-        salesMarketY[4] += data[i].sales;
+      if (salesData[i].market == 'PCFM') {
+        salesMarketY[0] += salesData[i].sales;
+      } else if (salesData[i].market == 'EAV') {
+        salesMarketY[1] += salesData[i].sales;
+      } else if (salesData[i].market == 'DFM-W') {
+        salesMarketY[2] += salesData[i].sales;
+      } else if (salesData[i].market == 'DFM-S') {
+        salesMarketY[3] += salesData[i].sales;
+      } else if (salesData[i].market == 'GPFM') {
+        salesMarketY[4] += salesData[i].sales;
       }
       //Sales per Vendor Category
-      if (data[i].vendorCategory == 'Non-Food Vendors' || data[i].vendorCategory == 'Non-Food Vendor') {
-        salesVendorY[0] += data[i].sales;
-      } else if (data[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
-        salesVendorY[1] += data[i].sales;
-      } else if (data[i].vendorCategory == 'Farmer') {
-        salesVendorY[2] += data[i].sales;
+      if (salesData[i].vendorCategory == 'Non-Food Vendors' || salesData[i].vendorCategory == 'Non-Food Vendor') {
+        salesVendorY[0] += salesData[i].sales;
+      } else if (salesData[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
+        salesVendorY[1] += salesData[i].sales;
+      } else if (salesData[i].vendorCategory == 'Farmer') {
+        salesVendorY[2] += salesData[i].sales;
       }
       //PCFM Sales per Vendor Category
-      if (data[i].market == 'PCFM') {
-        if (data[i].vendorCategory == 'Non-Food Vendors' || data[i].vendorCategory == 'Non-Food Vendor') {
-          PCFMvendorY[0] += data[i].sales;
-        } else if (data[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
-          PCFMvendorY[1] += data[i].sales;
-        } else if (data[i].vendorCategory == 'Farmer') {
-          PCFMvendorY[2] += data[i].sales;
+      if (salesData[i].market == 'PCFM') {
+        if (salesData[i].vendorCategory == 'Non-Food Vendors' || salesData[i].vendorCategory == 'Non-Food Vendor') {
+          PCFMvendorY[0] += salesData[i].sales;
+        } else if (salesData[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
+          PCFMvendorY[1] += salesData[i].sales;
+        } else if (salesData[i].vendorCategory == 'Farmer') {
+          PCFMvendorY[2] += salesData[i].sales;
         }
       }
       //EAV Sales per Vendor Category
-      if (data[i].market == 'EAV') {
-        if (data[i].vendorCategory == 'Non-Food Vendors' || data[i].vendorCategory == 'Non-Food Vendor') {
-          EAVvendorY[0] += data[i].sales;
-        } else if (data[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
-          EAVvendorY[1] += data[i].sales;
-        } else if (data[i].vendorCategory == 'Farmer') {
-          EAVvendorY[2] += data[i].sales;
+      if (salesData[i].market == 'EAV') {
+        if (salesData[i].vendorCategory == 'Non-Food Vendors' || salesData[i].vendorCategory == 'Non-Food Vendor') {
+          EAVvendorY[0] += salesData[i].sales;
+        } else if (salesData[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
+          EAVvendorY[1] += salesData[i].sales;
+        } else if (salesData[i].vendorCategory == 'Farmer') {
+          EAVvendorY[2] += salesData[i].sales;
         }
       }
       //DFM Sales per Vendor Category
-      if (data[i].market == 'DFM-S' || data[i].market == 'DFM-W') {
-        if (data[i].vendorCategory == 'Non-Food Vendors' || data[i].vendorCategory == 'Non-Food Vendor') {
-          DFMvendorY[0] += data[i].sales;
-        } else if (data[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
-          DFMvendorY[1] += data[i].sales;
-        } else if (data[i].vendorCategory == 'Farmer') {
-          DFMvendorY[2] += data[i].sales;
+      if (salesData[i].market == 'DFM-S' || salesData[i].market == 'DFM-W') {
+        if (salesData[i].vendorCategory == 'Non-Food Vendors' || salesData[i].vendorCategory == 'Non-Food Vendor') {
+          DFMvendorY[0] += salesData[i].sales;
+        } else if (salesData[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
+          DFMvendorY[1] += salesData[i].sales;
+        } else if (salesData[i].vendorCategory == 'Farmer') {
+          DFMvendorY[2] += salesData[i].sales;
         }
       }
       //GPFM Sales per Vendor Category
-      if (data[i].market == 'GPFM') {
-        if (data[i].vendorCategory == 'Non-Food Vendors' || data[i].vendorCategory == 'Non-Food Vendor') {
-          GPFMvendorY[0] += data[i].sales;
-        } else if (data[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
-          GPFMvendorY[1] += data[i].sales;
-        } else if (data[i].vendorCategory == 'Farmer') {
-          GPFMvendorY[2] += data[i].sales;
+      if (salesData[i].market == 'GPFM') {
+        if (salesData[i].vendorCategory == 'Non-Food Vendors' || salesData[i].vendorCategory == 'Non-Food Vendor') {
+          GPFMvendorY[0] += salesData[i].sales;
+        } else if (salesData[i].vendorCategory == 'Packaged, Processed and Prepared Food Vendor') {
+          GPFMvendorY[1] += salesData[i].sales;
+        } else if (salesData[i].vendorCategory == 'Farmer') {
+          GPFMvendorY[2] += salesData[i].sales;
         }
       }
       //Precipitation
-      if ((Math.round(data[i].precip * 10) / 10) == 0) {
-        precipSalesY[0] += data[i].sales;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.1) {
-        precipSalesY[1] += data[i].sales;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.2) {
-        precipSalesY[2] += data[i].sales;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.3) {
-        precipSalesY[3] += data[i].sales;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.4) {
-        precipSalesY[4] += data[i].sales;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.5) {
-        precipSalesY[5] += data[i].sales;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.6) {
-        precipSalesY[6] += data[i].sales;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.7) {
-        precipSalesY[7] += data[i].sales;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.8) {
-        precipSalesY[8] += data[i].sales;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.9) {
-        precipSalesY[9] += data[i].sales;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 1) {
-        precipSalesY[10] += data[i].sales;
+      if ((Math.round(salesData[i].precip * 10) / 10) == 0) {
+        precipSalesY[0] += salesData[i].sales;
+      } else if ((Math.round(salesData[i].precip * 10) / 10) == 0.1) {
+        precipSalesY[1] += salesData[i].sales;
+      } else if ((Math.round(salesData[i].precip * 10) / 10) == 0.2) {
+        precipSalesY[2] += salesData[i].sales;
+      } else if ((Math.round(salesData[i].precip * 10) / 10) == 0.3) {
+        precipSalesY[3] += salesData[i].sales;
+      } else if ((Math.round(salesData[i].precip * 10) / 10) == 0.4) {
+        precipSalesY[4] += salesData[i].sales;
+      } else if ((Math.round(salesData[i].precip * 10) / 10) == 0.5) {
+        precipSalesY[5] += salesData[i].sales;
+      } else if ((Math.round(salesData[i].precip * 10) / 10) == 0.6) {
+        precipSalesY[6] += salesData[i].sales;
+      } else if ((Math.round(salesData[i].precip * 10) / 10) == 0.7) {
+        precipSalesY[7] += salesData[i].sales;
+      } else if ((Math.round(salesData[i].precip * 10) / 10) == 0.8) {
+        precipSalesY[8] += salesData[i].sales;
+      } else if ((Math.round(salesData[i].precip * 10) / 10) == 0.9) {
+        precipSalesY[9] += salesData[i].sales;
+      } else if ((Math.round(salesData[i].precip * 10) / 10) == 1) {
+        precipSalesY[10] += salesData[i].sales;
       }
       //Temperature
-      if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 35) {
-        tempSalesY[0] += data[i].sales;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 40) {
-        tempSalesY[1] += data[i].sales;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 45) {
-        tempSalesY[2] += data[i].sales;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 50) {
-        tempSalesY[3] += data[i].sales;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 55) {
-        tempSalesY[4] += data[i].sales;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 60) {
-        tempSalesY[5] += data[i].sales;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 65) {
-        tempSalesY[6] += data[i].sales;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 70) {
-        tempSalesY[7] += data[i].sales;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 75) {
-        tempSalesY[8] += data[i].sales;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 80) {
-        tempSalesY[9] += data[i].sales;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 85) {
-        tempSalesY[10] += data[i].sales;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 90) {
-        tempSalesY[10] += data[i].sales;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 95) {
-        tempSalesY[10] += data[i].sales;
-      } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 100) {
-        tempSalesY[10] += data[i].sales;
+      if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 35) {
+        tempSalesY[0] += salesData[i].sales;
+      } else if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 40) {
+        tempSalesY[1] += salesData[i].sales;
+      } else if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 45) {
+        tempSalesY[2] += salesData[i].sales;
+      } else if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 50) {
+        tempSalesY[3] += salesData[i].sales;
+      } else if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 55) {
+        tempSalesY[4] += salesData[i].sales;
+      } else if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 60) {
+        tempSalesY[5] += salesData[i].sales;
+      } else if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 65) {
+        tempSalesY[6] += salesData[i].sales;
+      } else if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 70) {
+        tempSalesY[7] += salesData[i].sales;
+      } else if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 75) {
+        tempSalesY[8] += salesData[i].sales;
+      } else if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 80) {
+        tempSalesY[9] += salesData[i].sales;
+      } else if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 85) {
+        tempSalesY[10] += salesData[i].sales;
+      } else if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 90) {
+        tempSalesY[10] += salesData[i].sales;
+      } else if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 95) {
+        tempSalesY[10] += salesData[i].sales;
+      } else if (Math.round((Math.round(salesData[i].high - 2)) / 5) * 5 == 100) {
+        tempSalesY[10] += salesData[i].sales;
       }
     }
     allSalesX.push(new Date(date));
@@ -1320,150 +1339,154 @@
     var GPFMdate = '5/15/11';
     var GPFMattendance = [];
 
-    for (var i = 0; i < data.length; i++) {
-      if (data[i].date !== date) {
+    if (localStorage.getItem('attendanceData') == null) {
+      localStorage.setItem('attendanceData', JSON.stringify(data, null, '\t'));
+    }
+    var attendanceData = JSON.parse(localStorage.getItem('attendanceData'));
+    for (var i = 0; i < attendanceData.length; i++) {
+      if (attendanceData[i].date !== date) {
         //All Attendance
         allAttendanceX.push(new Date(date));
         var rounded = Math.round(attendance.reduce(function add(a, b) { return a + b }, 0));
         allAttendanceY.push(rounded);
         attendance = [];
-        date = data[i].date;
+        date = attendanceData[i].date;
       }
-      attendance.push(data[i].attendance);
+      attendance.push(attendanceData[i].attendance);
       //Market-specific Attendance
-      if (data[i].market == 'PCFM') {
-        if (data[i].date !== PCFMdate) {
+      if (attendanceData[i].market == 'PCFM') {
+        if (attendanceData[i].date !== PCFMdate) {
           PCFMattendanceX.push(new Date(PCFMdate));
           var rounded = Math.round(PCFMattendance.reduce(function add(a, b) { return a + b }, 0));
           PCFMattendanceY.push(rounded);
           PCFMattendance = [];
-          PCFMdate = data[i].date;
+          PCFMdate = attendanceData[i].date;
         }
-        PCFMattendance.push(data[i].attendance);
-      } else if (data[i].market == 'EAV') {
-        if (data[i].date !== EAVdate) {
+        PCFMattendance.push(attendanceData[i].attendance);
+      } else if (attendanceData[i].market == 'EAV') {
+        if (attendanceData[i].date !== EAVdate) {
           EAVattendanceX.push(new Date(EAVdate));
           var rounded = Math.round(EAVattendance.reduce(function add(a, b) { return a + b }, 0));
           EAVattendanceY.push(rounded);
           EAVattendance = [];
-          EAVdate = data[i].date;
+          EAVdate = attendanceData[i].date;
         }
-        EAVattendance.push(data[i].attendance);
-      } else if (data[i].market == 'DFM-W' || data[i].market == 'DFM-S') {
-        if (data[i].date !== DFMdate) {
+        EAVattendance.push(attendanceData[i].attendance);
+      } else if (attendanceData[i].market == 'DFM-W' || attendanceData[i].market == 'DFM-S') {
+        if (attendanceData[i].date !== DFMdate) {
           DFMattendanceX.push(new Date(DFMdate));
           var rounded = Math.round(DFMattendance.reduce(function add(a, b) { return a + b }, 0));
           DFMattendanceY.push(rounded);
           DFMattendance = [];
-          DFMdate = data[i].date;
+          DFMdate = attendanceData[i].date;
         }
-        DFMattendance.push(data[i].attendance);
-      } else if (data[i].market == 'GPFM') {
-        if (data[i].date !== GPFMdate) {
+        DFMattendance.push(attendanceData[i].attendance);
+      } else if (attendanceData[i].market == 'GPFM') {
+        if (attendanceData[i].date !== GPFMdate) {
           GPFMattendanceX.push(new Date(GPFMdate));
           var rounded = Math.round(GPFMattendance.reduce(function add(a, b) { return a + b }, 0));
           GPFMattendanceY.push(rounded);
           GPFMattendance = [];
-          GPFMdate = data[i].date;
+          GPFMdate = attendanceData[i].date;
         }
-        GPFMattendance.push(data[i].attendance);
+        GPFMattendance.push(attendanceData[i].attendance);
       }
       //Attendance per Market
-      if (data[i].market == 'PCFM') {
-        attendanceMarketY[0] += data[i].attendance;
-      } else if (data[i].market == 'EAV') {
-        attendanceMarketY[1] += data[i].attendance;
-      } else if (data[i].market == 'DFM-W') {
-        attendanceMarketY[2] += data[i].attendance;
-      } else if (data[i].market == 'DFM-S') {
-        attendanceMarketY[3] += data[i].attendance;
-      } else if (data[i].market == 'GPFM') {
-        attendanceMarketY[4] += data[i].attendance;
+      if (attendanceData[i].market == 'PCFM') {
+        attendanceMarketY[0] += attendanceData[i].attendance;
+      } else if (attendanceData[i].market == 'EAV') {
+        attendanceMarketY[1] += attendanceData[i].attendance;
+      } else if (attendanceData[i].market == 'DFM-W') {
+        attendanceMarketY[2] += attendanceData[i].attendance;
+      } else if (attendanceData[i].market == 'DFM-S') {
+        attendanceMarketY[3] += attendanceData[i].attendance;
+      } else if (attendanceData[i].market == 'GPFM') {
+        attendanceMarketY[4] += attendanceData[i].attendance;
       }
       //Precipitation
-      if ((Math.round(data[i].precip * 10) / 10) == 0) {
-        precipAttendanceY[0] += data[i].attendance;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.1) {
-        precipAttendanceY[1] += data[i].attendance;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.2) {
-        precipAttendanceY[2] += data[i].attendance;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.3) {
-        precipAttendanceY[3] += data[i].attendance;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.4) {
-        precipAttendanceY[4] += data[i].attendance;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.5) {
-        precipAttendanceY[5] += data[i].attendance;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.6) {
-        precipAttendanceY[6] += data[i].attendance;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.7) {
-        precipAttendanceY[7] += data[i].attendance;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.8) {
-        precipAttendanceY[8] += data[i].attendance;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 0.9) {
-        precipAttendanceY[9] += data[i].attendance;
-      } else if ((Math.round(data[i].precip * 10) / 10) == 1) {
-        precipAttendanceY[10] += data[i].attendance;
+      if ((Math.round(attendanceData[i].precip * 10) / 10) == 0) {
+        precipAttendanceY[0] += attendanceData[i].attendance;
+      } else if ((Math.round(attendanceData[i].precip * 10) / 10) == 0.1) {
+        precipAttendanceY[1] += attendanceData[i].attendance;
+      } else if ((Math.round(attendanceData[i].precip * 10) / 10) == 0.2) {
+        precipAttendanceY[2] += attendanceData[i].attendance;
+      } else if ((Math.round(attendanceData[i].precip * 10) / 10) == 0.3) {
+        precipAttendanceY[3] += attendanceData[i].attendance;
+      } else if ((Math.round(attendanceData[i].precip * 10) / 10) == 0.4) {
+        precipAttendanceY[4] += attendanceData[i].attendance;
+      } else if ((Math.round(attendanceData[i].precip * 10) / 10) == 0.5) {
+        precipAttendanceY[5] += attendanceData[i].attendance;
+      } else if ((Math.round(attendanceData[i].precip * 10) / 10) == 0.6) {
+        precipAttendanceY[6] += attendanceData[i].attendance;
+      } else if ((Math.round(attendanceData[i].precip * 10) / 10) == 0.7) {
+        precipAttendanceY[7] += attendanceData[i].attendance;
+      } else if ((Math.round(attendanceData[i].precip * 10) / 10) == 0.8) {
+        precipAttendanceY[8] += attendanceData[i].attendance;
+      } else if ((Math.round(attendanceData[i].precip * 10) / 10) == 0.9) {
+        precipAttendanceY[9] += attendanceData[i].attendance;
+      } else if ((Math.round(attendanceData[i].precip * 10) / 10) == 1) {
+        precipAttendanceY[10] += attendanceData[i].attendance;
       }
       //Temperature
-      if (data[i].temperature !== null) {
-        if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 35) {
-          tempAttendanceY[0] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 40) {
-          tempAttendanceY[1] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 45) {
-          tempAttendanceY[2] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 50) {
-          tempAttendanceY[3] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 55) {
-          tempAttendanceY[4] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 60) {
-          tempAttendanceY[5] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 65) {
-          tempAttendanceY[6] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 70) {
-          tempAttendanceY[7] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 75) {
-          tempAttendanceY[8] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 80) {
-          tempAttendanceY[9] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 85) {
-          tempAttendanceY[10] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 90) {
-          tempAttendanceY[10] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 95) {
-          tempAttendanceY[10] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].temperature)) / 5) * 5 == 100) {
-          tempAttendanceY[10] += data[i].attendance;
+      if (attendanceData[i].temperature !== null) {
+        if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 35) {
+          tempAttendanceY[0] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 40) {
+          tempAttendanceY[1] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 45) {
+          tempAttendanceY[2] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 50) {
+          tempAttendanceY[3] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 55) {
+          tempAttendanceY[4] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 60) {
+          tempAttendanceY[5] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 65) {
+          tempAttendanceY[6] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 70) {
+          tempAttendanceY[7] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 75) {
+          tempAttendanceY[8] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 80) {
+          tempAttendanceY[9] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 85) {
+          tempAttendanceY[10] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 90) {
+          tempAttendanceY[10] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 95) {
+          tempAttendanceY[10] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].temperature)) / 5) * 5 == 100) {
+          tempAttendanceY[10] += attendanceData[i].attendance;
         }
       } else {
-        if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 35) {
-          tempAttendanceY[0] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 40) {
-          tempAttendanceY[1] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 45) {
-          tempAttendanceY[2] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 50) {
-          tempAttendanceY[3] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 55) {
-          tempAttendanceY[4] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 60) {
-          tempAttendanceY[5] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 65) {
-          tempAttendanceY[6] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 70) {
-          tempAttendanceY[7] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 75) {
-          tempAttendanceY[8] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 80) {
-          tempAttendanceY[9] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 85) {
-          tempAttendanceY[10] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 90) {
-          tempAttendanceY[10] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 95) {
-          tempAttendanceY[10] += data[i].attendance;
-        } else if (Math.round((Math.round(data[i].high - 2)) / 5) * 5 == 100) {
-          tempAttendanceY[10] += data[i].attendance;
+        if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 35) {
+          tempAttendanceY[0] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 40) {
+          tempAttendanceY[1] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 45) {
+          tempAttendanceY[2] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 50) {
+          tempAttendanceY[3] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 55) {
+          tempAttendanceY[4] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 60) {
+          tempAttendanceY[5] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 65) {
+          tempAttendanceY[6] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 70) {
+          tempAttendanceY[7] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 75) {
+          tempAttendanceY[8] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 80) {
+          tempAttendanceY[9] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 85) {
+          tempAttendanceY[10] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 90) {
+          tempAttendanceY[10] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 95) {
+          tempAttendanceY[10] += attendanceData[i].attendance;
+        } else if (Math.round((Math.round(attendanceData[i].high - 2)) / 5) * 5 == 100) {
+          tempAttendanceY[10] += attendanceData[i].attendance;
         }
       }
     }
@@ -2070,7 +2093,7 @@
     if (checkedElements.every(elem => (document.getElementById('eavAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('eav-attendance').style.display = 'block';
     } else {
-      document.getElementById('eav-attendance').style.display = 'none';
+      document.getElemlentById('eav-attendance').style.display = 'none';
     }
     if (checkedElements.every(elem => (document.getElementById('dfmAttendance').getAttribute('data-category').split(' ')).indexOf(elem) > -1)) {
       document.getElementById('dfm-attendance').style.display = 'block';

@@ -168,6 +168,7 @@
     box-shadow: 0 0 1px rgba(0, 0, 0, .3), 0 2px 1px 0 rgba(0, 0, 0, .3);
     border-style: solid;
     font-size: 0.8em;
+    cursor: pointer;
 }
 .empty .primary-action {
     background-color: #2d8464;

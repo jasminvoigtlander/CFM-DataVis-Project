@@ -185,24 +185,12 @@
     background-color: #4c967b;
     border-color: #4c967b;
 }
-.dash-div .drag-icon {
+.dash-div .remove-icon {
     height: 16px;
     width: 16px;
     float: right;
     margin-right: 30px;
     transform: translateY(25px);
-    background: url('images/drag.png') no-repeat;
-}
-.dash-div .drag-icon {
-    cursor: pointer;
-}
-.dash-div .remove-icon {
-    height: 17px;
-    width: 17px;
-    float: right;
-    margin-right: 53px;
-    transform: translateY(25px);
-    margin-bottom: -17px;
     background: url('images/remove.png') no-repeat;
 }
 .dash-div .remove-icon:hover {

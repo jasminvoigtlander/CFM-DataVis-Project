@@ -260,7 +260,7 @@
   }
   function displayDashboard() {
     document.getElementById('footer-graphs').style.display = 'none';
-    document.getElementById('footer-dash').style.display = 'inline-block';
+    document.getElementById('footer-dash').style.display = 'flex';
 
     //Parse Dashboard JSON
     if (localStorage.getItem('dashboardGraphs') !== null && localStorage.getItem('dashboardGraphs') !== '' && localStorage.getItem('dashboardGraphs') !== '[]') {

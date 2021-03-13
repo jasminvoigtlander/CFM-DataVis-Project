@@ -10,13 +10,11 @@
     margin: 0px auto 0px;
     padding: 0px;
     bottom: 0;
-    transform: translateY(8px);
     display: flex;
     justify-content: center;
 }
 #footer .content {
     position: relative;
-    margin-top: 24px;
     margin: 0px 170px 0px;
 }
 .radius-top {

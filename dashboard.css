@@ -10,7 +10,7 @@
     position: fixed;
     width: 100%;
     line-height: 0;
-    margin: 0px auto 0px;
+    margin: -8px auto 0px;
     height: 138px;
 }
 #header .content {
@@ -64,6 +64,11 @@
     width: 100%;
     margin: 0px auto 0px;
     padding: 0px;
+}
+#footer .outline,
+#footer-graphs .outline,
+#footer-dash .outline {
+    height: calc(100vh - 235px);
 }
 .outline {
     position: relative;
@@ -177,21 +182,23 @@ a {
 }
 #footer {
     margin: 0px auto 0px;
+    height: calc(100vh - 200px);
+    width: 100%;
     padding: 0px;
     bottom: 0;
+    position: fixed;
     display: flex;
     justify-content: center;
-}
-#footer .content {
-    position: relative;
-    margin-top: 32px;
-    margin: 0px 170px 0px;
 }
 .radius-top {
     border-radius: 12px 12px 0px 0px;
     -moz-border-radius: 12px 12px 0px 0px;
     -khtml-border-radius: 12px 12px 0px 0px;
     -webkit-border-radius: 12px 12px 0px 0px;
+}
+#footer .content {
+    max-width: 1080px;
+    width: 100%;
 }
 #footer .padded {
     padding-bottom: 0px;

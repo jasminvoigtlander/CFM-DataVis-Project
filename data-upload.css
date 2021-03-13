@@ -6,34 +6,6 @@
     font-family: 'Oswald-Regular';
     src: url('fonts/oswald/Oswald-Regular.ttf');
 }
-#footer {
-    margin: 0px auto 0px;
-    padding: 0px;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-}
-#footer .content {
-    position: relative;
-    margin: 0px 170px 0px;
-}
-.radius-top {
-    border-radius: 12px 12px 0px 0px;
-    -moz-border-radius: 12px 12px 0px 0px;
-    -khtml-border-radius: 12px 12px 0px 0px;
-    -webkit-border-radius: 12px 12px 0px 0px;
-}
-#footer .padded {
-    padding-bottom: 0px;
-}
-#footer .outline {
-    border-bottom: none;
-    border-radius: 6px 6px 0px 0px;
-}
-.row {
-    width: 100%;
-    margin: 0 auto;
-}
 .data-upload {
     padding: 0px 12px;
     border-bottom: 2px dotted rgba(0, 0, 0, 0.12);
